@@ -1,0 +1,6 @@
+package com.example.core.utils
+
+object Utils {
+
+    const val ACCESS_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZTZkZTEzODk1ODNmMDQ3YzQyYWNhNTE1NTkyMDBmNCIsIm5iZiI6MTcyNjE1OTg4MS4zNTM2NDMsInN1YiI6IjY2OTViN2JlMGUyYTVjODkwMGE2MGE5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.47C9H_k-YT0GvDcqDIj9V4BCyi4LB-hvucIhCy5EiRA"
+}
