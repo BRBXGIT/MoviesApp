@@ -39,7 +39,7 @@ fun LatestMoviesScreen(
         LaunchedEffect(latestMovies.loadState) {
             if(latestMovies.loadState.refresh is LoadState.Error) {
                 SnackbarController.sendEvent(SnackbarEvent(
-                    message = "⚠ Something wrong with internet, try with vpn :)"
+                    message = "⚠ Internet exception, try with vpn :)"
                 ))
             }
         }
