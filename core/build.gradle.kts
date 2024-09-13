@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.converter.gson)
     //Room
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.ui.text.google.fonts)
     ksp(libs.androidx.room.compiler)
     //Hilt
     implementation(libs.hilt.android)

@@ -49,6 +49,8 @@ dependencies {
     //Core module
     implementation(project(":core"))
 
+    //Material3
+    implementation(libs.androidx.material3)
     //Hilt impl
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
