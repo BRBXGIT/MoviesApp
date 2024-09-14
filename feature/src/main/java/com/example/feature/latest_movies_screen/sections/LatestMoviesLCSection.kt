@@ -1,5 +1,11 @@
 package com.example.feature.latest_movies_screen.sections
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Surface
@@ -16,14 +23,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
+import coil.size.Size
 import com.example.core.data.models.latest_movies_response.Result
 import com.example.core.data.models.movies_genres_response.Genre
 import com.example.core.ui.theme.mColors
@@ -44,7 +56,7 @@ fun LatestMoviesLCSection(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(movies.itemCount, key = { it }) { index ->
+        items(movies.itemCount) { index ->
             val movie = movies[index]
 
             movie?.let {
@@ -54,9 +66,10 @@ fun LatestMoviesLCSection(
 
                 MovieCard(
                     rating = movie.voteAverage.toString(),
-                    posterPath = "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                    posterPath = "https://image.tmdb.org/t/p/w200/${movie.posterPath}",
                     title = movie.title,
-                    genres = movieGenres.joinToString(separator = ", ") { it.name }
+                    genres = movieGenres.joinToString(separator = ", ") { it.name },
+                    index = index
                 )
             }
         }
@@ -68,7 +81,8 @@ fun MovieCard(
     rating: String,
     posterPath: String,
     title: String,
-    genres: String
+    genres: String,
+    index: Int
 ) {
     Surface(
         shape = mShapes.small,
@@ -79,11 +93,17 @@ fun MovieCard(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            AsyncImage(
-                model = posterPath,
+            SubcomposeAsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(posterPath)
+                    .crossfade(500)
+                    .size(Size.ORIGINAL)
+                    .build(),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
+                filterQuality = FilterQuality.Low,
+                contentScale = ContentScale.Crop,
+                loading = { if(index < 6) AnimatedShimmer() }
             )
 
             Box(
@@ -134,4 +154,36 @@ fun MovieCard(
             }
         }
     }
+}
+
+@Composable
+fun AnimatedShimmer() {
+    val shimmerColors = listOf(
+        Color.LightGray.copy(alpha = 0.6f),
+        Color.LightGray.copy(alpha = 0.2f),
+        Color.LightGray.copy(alpha = 0.6f),
+    )
+    val transition = rememberInfiniteTransition(label = "transition")
+    val translateAnim = transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1000f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 1000,
+                easing = FastOutSlowInEasing
+            ),
+            repeatMode = RepeatMode.Reverse
+        ), label = "translateAnim"
+    )
+    val brush = Brush.linearGradient(
+        colors = shimmerColors,
+        start = Offset.Zero,
+        end = Offset(x = translateAnim.value, y = translateAnim.value)
+    )
+
+    Box(
+        modifier = Modifier
+            .size(280.dp)
+            .background(brush)
+    )
 }
