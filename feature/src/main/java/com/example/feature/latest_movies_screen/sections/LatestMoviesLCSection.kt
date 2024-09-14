@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -84,7 +84,7 @@ fun MovieCard(
     genres: String,
     index: Int
 ) {
-    Surface(
+    Card(
         shape = mShapes.small,
         modifier = Modifier
             .fillMaxWidth()
@@ -103,7 +103,7 @@ fun MovieCard(
                 modifier = Modifier.fillMaxSize(),
                 filterQuality = FilterQuality.Low,
                 contentScale = ContentScale.Crop,
-                loading = { if(index < 6) AnimatedShimmer() }
+                loading = { if(index < 8) AnimatedShimmer() }
             )
 
             Box(

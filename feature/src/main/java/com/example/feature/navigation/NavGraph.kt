@@ -31,7 +31,8 @@ fun NavGraph() {
             val result = snackbarHostState.showSnackbar(
                 message = event.message,
                 actionLabel = event.action?.name,
-                duration = SnackbarDuration.Short
+                duration = SnackbarDuration.Indefinite,
+                withDismissAction = true
             )
 
             if(result == SnackbarResult.ActionPerformed) {
