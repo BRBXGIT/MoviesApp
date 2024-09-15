@@ -35,6 +35,7 @@ class LatestMoviesScreenVM @Inject constructor(
         emptyList()
     )
 
+    //Increment value to reload genres
     fun reloadGenres() {
         _reloadTrigger.value++
     }

@@ -25,7 +25,7 @@ import com.example.feature.R
 
 @Composable
 fun ErrorSection(
-    errorMessage: String
+    errorMessage: String,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.another))
     Box(
