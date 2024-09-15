@@ -32,7 +32,6 @@ fun NavGraph() {
                 message = event.message,
                 actionLabel = event.action?.name,
                 duration = SnackbarDuration.Indefinite,
-                withDismissAction = true
             )
 
             if(result == SnackbarResult.ActionPerformed) {
