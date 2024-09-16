@@ -15,11 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.feature.common.snackbars.ObserveAsEvents
-import com.example.feature.common.snackbars.SnackbarController
-import com.example.feature.common.top_bar.CommonTopAppBar
+import com.example.feature.common.bottom_bar.CommonBottomBar
+import com.example.core.design_system.snackbars.ObserveAsEvents
+import com.example.core.design_system.snackbars.SnackbarController
+import com.example.core.design_system.top_bar.CommonTopAppBar
+import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
+import com.example.feature.profile_screen.navigation.profileScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,16 +54,25 @@ fun NavGraph() {
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        topBar = { CommonTopAppBar(
-            title = "Latest movies",
-            scrollBehavior = scrollBehavior
-        ) },
+        topBar = {
+            CommonTopAppBar(
+                title = "Latest movies",
+                scrollBehavior = scrollBehavior
+            )
+        },
+        bottomBar = {
+            CommonBottomBar(navController = navController)
+        }
     ) { mainScaffoldPadding ->
         NavHost(
             navController = navController,
             startDestination = LatestMoviesScreenRoute
         ) {
             latestMoviesScreen(mainScaffoldPadding)
+
+            favoritesScreen(mainScaffoldPadding)
+
+            profileScreen(mainScaffoldPadding)
         }
     }
 }

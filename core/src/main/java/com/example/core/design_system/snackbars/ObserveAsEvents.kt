@@ -1,4 +1,4 @@
-package com.example.feature.common.snackbars
+package com.example.core.design_system.snackbars
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

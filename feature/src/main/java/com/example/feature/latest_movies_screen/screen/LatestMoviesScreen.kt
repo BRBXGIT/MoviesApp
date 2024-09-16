@@ -19,9 +19,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.ui.theme.mColors
-import com.example.feature.common.snackbars.SnackbarAction
-import com.example.feature.common.snackbars.SnackbarController
-import com.example.feature.common.snackbars.SnackbarEvent
+import com.example.core.design_system.snackbars.SnackbarAction
+import com.example.core.design_system.snackbars.SnackbarController
+import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.feature.latest_movies_screen.sections.ErrorSection
 import com.example.feature.latest_movies_screen.sections.LatestMoviesLCSection
 

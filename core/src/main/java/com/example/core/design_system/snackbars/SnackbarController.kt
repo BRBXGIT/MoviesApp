@@ -1,4 +1,4 @@
-package com.example.feature.common.snackbars
+package com.example.core.design_system.snackbars
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

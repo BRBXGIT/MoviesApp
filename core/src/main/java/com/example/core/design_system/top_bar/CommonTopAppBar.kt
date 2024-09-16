@@ -1,4 +1,4 @@
-package com.example.feature.common.top_bar
+package com.example.core.design_system.top_bar
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -9,9 +9,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
-import com.example.feature.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,7 +29,7 @@ fun CommonTopAppBar(
                 onClick = { /*TODO*/ }
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_settings_outlined),
+                    painter = painterResource(id = MoviesAppIcons.Magnifier),
                     contentDescription = null
                 )
             }
@@ -39,7 +39,7 @@ fun CommonTopAppBar(
                 onClick = { /*TODO*/ }
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_magnifer_outlined),
+                    painter = painterResource(id = MoviesAppIcons.Settings),
                     contentDescription = null
                 )
             }

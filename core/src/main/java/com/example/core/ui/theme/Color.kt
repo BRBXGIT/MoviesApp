@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 //Nav bar
 val DarkSurface = Color(0xff2c252f)
-val DarkOnSecondaryContainer = Color(0xff000000)
+val DarkOnSecondaryContainer = Color(0xffeedcf5)
 val DarkOnSurface = Color(0xffcec6ce)
 val DarkSecondaryContainer = Color(0xff5b4e61)
 val DarkOnSurfaceVariant = Color(0xffd0c4d0)
