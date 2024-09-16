@@ -1,5 +1,9 @@
 package com.example.feature.common.bottom_bar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -8,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mTypography
 import com.example.feature.favorites_screen.navigation.FavoritesScreenRoute
@@ -25,7 +28,8 @@ data class NavItem(
 
 @Composable
 fun CommonBottomBar(
-    navController: NavHostController
+    navController: NavHostController,
+    currentDestination: String
 ) {
     val navItems = listOf(
         NavItem(
@@ -51,30 +55,43 @@ fun CommonBottomBar(
         )
     )
 
-    //Get current route
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-    val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
-    NavigationBar(
-        tonalElevation = 0.dp
+    val navBarRoutes = listOf(
+        "LatestMoviesScreenRoute",
+        "FavoritesScreenRoute",
+        "ProfileScreenRoute"
+    )
+
+    AnimatedVisibility(
+        visible = (currentDestination in navBarRoutes),
+        enter = fadeIn(tween(500)),
+        exit = fadeOut(tween(500))
     ) {
-        navItems.forEach { navItem ->
-            val chosen = navItem.route == currentDestination
-            NavigationBarItem(
-                selected = chosen,
-                onClick = { navController.navigate(navItem.destination) },
-                icon = {
-                    Icon(
-                        painter = painterResource(id = if(chosen) navItem.chosenIcon else navItem.defaultIcon),
-                        contentDescription = null
-                    )
-                },
-                label = {
-                    Text(
-                        text = navItem.label,
-                        style = mTypography.labelMedium
-                    )
-                }
-            )
+        NavigationBar(
+            tonalElevation = 0.dp
+        ) {
+            navItems.forEach { navItem ->
+                val chosen = navItem.route == currentDestination
+                NavigationBarItem(
+                    selected = chosen,
+                    onClick = {
+                        if(!chosen) {
+                            navController.navigate(navItem.destination)
+                        }
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = if(chosen) navItem.chosenIcon else navItem.defaultIcon),
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = navItem.label,
+                            style = mTypography.labelMedium
+                        )
+                    }
+                )
+            }
         }
     }
 }

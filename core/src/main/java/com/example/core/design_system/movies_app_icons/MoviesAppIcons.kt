@@ -11,4 +11,5 @@ object MoviesAppIcons {
     val UserFilled = R.drawable.ic_user_filled
     val Heart = R.drawable.ic_heart_outlined
     val HeartFilled = R.drawable.ic_heart_filled
+    val ArrowLeft = R.drawable.ic_arrow_left_filled
 }

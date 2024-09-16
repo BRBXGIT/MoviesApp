@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.ui.theme.mColors
@@ -28,7 +29,8 @@ import com.example.feature.latest_movies_screen.sections.LatestMoviesLCSection
 @Composable
 fun LatestMoviesScreen(
     mainScaffoldPadding: PaddingValues,
-    viewModel: LatestMoviesScreenVM
+    viewModel: LatestMoviesScreenVM,
+    navController: NavHostController
 ) {
     val latestMovies = viewModel.latestMovies.collectAsLazyPagingItems()
     val moviesGenres by viewModel.allMoviesGenres.collectAsStateWithLifecycle()
@@ -55,7 +57,8 @@ fun LatestMoviesScreen(
         } else {
             LatestMoviesLCSection(
                 movies = latestMovies,
-                genres = moviesGenres
+                genres = moviesGenres,
+                navController = navController
             )
         }
 

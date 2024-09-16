@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
@@ -32,11 +33,13 @@ import com.example.core.design_system.animated_shimmer.AnimatedShimmer
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mShapes
 import com.example.core.ui.theme.mTypography
+import com.example.feature.movie_screen.navigation.MovieScreenRoute
 
 @Composable
 fun LatestMoviesLCSection(
     movies: LazyPagingItems<Result>,
-    genres: List<Genre>
+    genres: List<Genre>,
+    navController: NavHostController
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -60,7 +63,12 @@ fun LatestMoviesLCSection(
                     posterPath = "https://image.tmdb.org/t/p/w200/${movie.posterPath}",
                     title = movie.title,
                     genres = movieGenres.joinToString(separator = ", ") { it.name },
-                    index = index
+                    index = index,
+                    onMovieClick = {
+                        navController.navigate(MovieScreenRoute(
+                            movieId = movie.id
+                        ))
+                    }
                 )
             }
         }
@@ -73,9 +81,11 @@ fun MovieCard(
     posterPath: String,
     title: String,
     genres: String,
-    index: Int
+    index: Int,
+    onMovieClick: () -> Unit
 ) {
     Card(
+        onClick = { onMovieClick() },
         shape = mShapes.small,
         modifier = Modifier
             .fillMaxWidth()

@@ -17,7 +17,7 @@ import com.example.core.ui.theme.mTypography
 @Composable
 fun CommonTopAppBar(
     title: String,
-    scrollBehavior: TopAppBarScrollBehavior
+    scrollBehavior: TopAppBarScrollBehavior,
 ) {
     CenterAlignedTopAppBar(
         title = { Text(
@@ -29,7 +29,9 @@ fun CommonTopAppBar(
                 onClick = { /*TODO*/ }
             ) {
                 Icon(
-                    painter = painterResource(id = MoviesAppIcons.Magnifier),
+                    painter = painterResource(
+                        id = if(title == "") MoviesAppIcons.Heart else MoviesAppIcons.Settings
+                    ),
                     contentDescription = null
                 )
             }
@@ -39,7 +41,9 @@ fun CommonTopAppBar(
                 onClick = { /*TODO*/ }
             ) {
                 Icon(
-                    painter = painterResource(id = MoviesAppIcons.Settings),
+                    painter = painterResource(
+                        id = if(title == "") MoviesAppIcons.ArrowLeft else MoviesAppIcons.Magnifier
+                    ),
                     contentDescription = null
                 )
             }

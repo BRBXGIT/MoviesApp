@@ -14,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.feature.common.bottom_bar.CommonBottomBar
 import com.example.core.design_system.snackbars.ObserveAsEvents
@@ -22,6 +23,7 @@ import com.example.core.design_system.top_bar.CommonTopAppBar
 import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
+import com.example.feature.movie_screen.navigation.movieScreen
 import com.example.feature.profile_screen.navigation.profileScreen
 import kotlinx.coroutines.launch
 
@@ -40,6 +42,7 @@ fun NavGraph() {
                 message = event.message,
                 actionLabel = event.action?.name,
                 duration = SnackbarDuration.Indefinite,
+                withDismissAction = true
             )
 
             if(result == SnackbarResult.ActionPerformed) {
@@ -49,6 +52,9 @@ fun NavGraph() {
     }
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+    val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -56,23 +62,36 @@ fun NavGraph() {
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             CommonTopAppBar(
-                title = "Latest movies",
+                title = when(currentDestination) {
+                    "LatestMoviesScreenRoute" -> "Latest movies"
+                    "FavoritesScreenRoute" -> "Favorites"
+                    "ProfileScreenRoute" -> "Profile"
+                    else -> ""
+                },
                 scrollBehavior = scrollBehavior
             )
         },
         bottomBar = {
-            CommonBottomBar(navController = navController)
+            CommonBottomBar(
+                navController = navController,
+                currentDestination = currentDestination
+            )
         }
     ) { mainScaffoldPadding ->
         NavHost(
             navController = navController,
             startDestination = LatestMoviesScreenRoute
         ) {
-            latestMoviesScreen(mainScaffoldPadding)
+            latestMoviesScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                navController = navController
+            )
 
             favoritesScreen(mainScaffoldPadding)
 
             profileScreen(mainScaffoldPadding)
+
+            movieScreen(mainScaffoldPadding)
         }
     }
 }
