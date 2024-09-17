@@ -20,10 +20,12 @@ fun CommonTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(
-            text = title,
-            style = mTypography.titleMedium
-        ) },
+        title = {
+            Text(
+                text = title,
+                style = mTypography.titleMedium
+            )
+        },
         actions = {
             IconButton(
                 onClick = { /*TODO*/ }

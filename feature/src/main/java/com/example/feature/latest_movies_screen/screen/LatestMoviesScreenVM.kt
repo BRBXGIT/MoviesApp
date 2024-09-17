@@ -3,7 +3,7 @@ package com.example.feature.latest_movies_screen.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.core.data.repos.MoviesScreenRepoImpl
+import com.example.core.data.repos.LatestMoviesScreenRepoImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LatestMoviesScreenVM @Inject constructor(
-    private val repository: MoviesScreenRepoImpl
+    private val repository: LatestMoviesScreenRepoImpl
 ): ViewModel() {
     val latestMovies = repository.getLatestMovies().cachedIn(viewModelScope)
 

@@ -7,14 +7,14 @@ import com.example.core.data.models.latest_movies_response.Result
 import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
 import com.example.core.data.remote.LatestMoviesPagingSource
 import com.example.core.data.remote.TMDBApiInstance
-import com.example.core.domain.MoviesScreenRepo
+import com.example.core.domain.LatestMoviesScreenRepo
 import com.example.core.utils.Utils
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MoviesScreenRepoImpl @Inject constructor(
+class LatestMoviesScreenRepoImpl @Inject constructor(
     private val apiInstance: TMDBApiInstance
-): MoviesScreenRepo {
+): LatestMoviesScreenRepo {
 
     //Latest movies
     override fun getLatestMovies(): Flow<PagingData<Result>> {

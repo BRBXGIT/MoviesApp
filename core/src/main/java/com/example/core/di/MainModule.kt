@@ -1,8 +1,10 @@
 package com.example.core.di
 
 import com.example.core.data.remote.TMDBApiInstance
-import com.example.core.data.repos.MoviesScreenRepoImpl
-import com.example.core.domain.MoviesScreenRepo
+import com.example.core.data.repos.LatestMoviesScreenRepoImpl
+import com.example.core.data.repos.MovieScreenRepoImpl
+import com.example.core.domain.LatestMoviesScreenRepo
+import com.example.core.domain.MovieScreenRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +30,13 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideMoviesScreenRepo(apiInstance: TMDBApiInstance): MoviesScreenRepo {
-        return MoviesScreenRepoImpl(apiInstance)
+    fun provideLatestMoviesScreenRepo(apiInstance: TMDBApiInstance): LatestMoviesScreenRepo {
+        return LatestMoviesScreenRepoImpl(apiInstance)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieScreenRepo(apiInstance: TMDBApiInstance): MovieScreenRepo {
+        return MovieScreenRepoImpl(apiInstance)
     }
 }
