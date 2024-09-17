@@ -18,6 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.core.ui.theme.mColors
 import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
+import com.example.feature.movie_screen.sections.ProductionCompaniesSection
 
 @Composable
 fun MovieScreen(
@@ -44,6 +45,10 @@ fun MovieScreen(
 
             item {
                 DescriptionSection(description = movieDetails.overview)
+            }
+
+            item {
+                ProductionCompaniesSection(productionCompanies = movieDetails.productionCompanies)
             }
         }
     } else {

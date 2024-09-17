@@ -9,6 +9,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavHostController
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
@@ -18,6 +19,7 @@ import com.example.core.ui.theme.mTypography
 fun CommonTopAppBar(
     title: String,
     scrollBehavior: TopAppBarScrollBehavior,
+    navController: NavHostController
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -40,7 +42,11 @@ fun CommonTopAppBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = { /*TODO*/ }
+                onClick = {
+                    if(title == "") {
+                        navController.navigateUp()
+                    }
+                }
             ) {
                 Icon(
                     painter = painterResource(

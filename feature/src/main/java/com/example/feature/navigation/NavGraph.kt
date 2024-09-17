@@ -68,7 +68,8 @@ fun NavGraph() {
                     "ProfileScreenRoute" -> "Profile"
                     else -> ""
                 },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                navController = navController
             )
         },
         bottomBar = {
