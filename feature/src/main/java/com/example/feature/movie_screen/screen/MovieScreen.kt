@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.core.ui.theme.mColors
+import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
 
 @Composable
@@ -35,10 +36,14 @@ fun MovieScreen(
                 .fillMaxSize()
                 .background(mColors.background)
                 .padding(mainScaffoldPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             item {
                 HeaderSection(movieDetails = movieDetails)
+            }
+
+            item {
+                DescriptionSection(description = movieDetails.overview)
             }
         }
     } else {

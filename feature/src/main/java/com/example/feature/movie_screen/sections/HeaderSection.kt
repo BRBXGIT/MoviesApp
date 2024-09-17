@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
@@ -80,7 +82,7 @@ fun HeaderSection(
                     val genres = movieDetails.genres.joinToString(", ") { it.name }
                     Text(
                         text = genres,
-                        style = mTypography.bodyMedium.copy(
+                        style = mTypography.bodySmall.copy(
                             color = mColors.secondary
                         ),
                         maxLines = 1,
@@ -93,7 +95,7 @@ fun HeaderSection(
                     val outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH)
                     Text(
                         text = date.format(outputFormatter),
-                        style = mTypography.bodyMedium.copy(
+                        style = mTypography.bodySmall.copy(
                             color = mColors.secondary
                         ),
                         maxLines = 1,
@@ -102,7 +104,7 @@ fun HeaderSection(
 
                     Text(
                         text = movieDetails.status,
-                        style = mTypography.bodyMedium.copy(
+                        style = mTypography.bodySmall.copy(
                             color = mColors.secondary
                         ),
                         maxLines = 1,
@@ -111,7 +113,7 @@ fun HeaderSection(
 
                     Text(
                         text = movieDetails.spokenLanguages.joinToString(", ") { it.name },
-                        style = mTypography.bodyMedium.copy(
+                        style = mTypography.bodySmall.copy(
                             color = mColors.secondary
                         ),
                         maxLines = 1,
@@ -120,7 +122,7 @@ fun HeaderSection(
 
                     Text(
                         text = "Adult: ${movieDetails.adult}",
-                        style = mTypography.bodyMedium.copy(
+                        style = mTypography.bodySmall.copy(
                             color = mColors.secondary
                         ),
                         maxLines = 1,
