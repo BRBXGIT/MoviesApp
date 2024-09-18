@@ -3,18 +3,19 @@ package com.example.feature.movie_screen.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.ui.theme.mColors
 import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
@@ -30,6 +31,7 @@ fun MovieScreen(
     LaunchedEffect(movieDetails == null) {
         viewModel.setMovieDetails(movieId)
     }
+    val movieReviews = viewModel.getMovieReviews(movieId).collectAsLazyPagingItems()
 
     if(movieDetails != null) {
         LazyColumn(
@@ -40,7 +42,7 @@ fun MovieScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             item {
-                HeaderSection(movieDetails = movieDetails)
+                HeaderSection(movieDetailsResponse = movieDetails)
             }
 
             item {
@@ -49,6 +51,14 @@ fun MovieScreen(
 
             item {
                 ProductionCompaniesSection(productionCompanies = movieDetails.productionCompanies)
+            }
+
+            items(movieReviews.itemCount) { index ->
+                val review = movieReviews[index]
+
+                review?.let {
+                    Text(text = review.author)
+                }
             }
         }
     } else {
