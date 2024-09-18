@@ -17,8 +17,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.ui.theme.mColors
+import com.example.core.ui.theme.mTypography
 import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
+import com.example.feature.movie_screen.sections.MovieReview
 import com.example.feature.movie_screen.sections.ProductionCompaniesSection
 
 @Composable
@@ -53,11 +55,21 @@ fun MovieScreen(
                 ProductionCompaniesSection(productionCompanies = movieDetails.productionCompanies)
             }
 
+            item {
+                Text(
+                    text = "Reviews",
+                    style = mTypography.titleMedium.copy(
+                        color = mColors.onSecondaryContainer
+                    ),
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
+
             items(movieReviews.itemCount) { index ->
                 val review = movieReviews[index]
 
                 review?.let {
-                    Text(text = review.author)
+                    MovieReview(review = review)
                 }
             }
         }
