@@ -1,6 +1,8 @@
 package com.example.feature.movie_screen.sections
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -78,14 +80,24 @@ fun ProductionCompanyCard(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             if(image != null) {
-                AsyncImage(
-                    model = "https://image.tmdb.org/t/p/w500/${image}",
-                    contentDescription = null,
+                Box(
                     modifier = Modifier
-                        .size(32.dp)
-                        .clip(mShapes.extraSmall),
-                    contentScale = ContentScale.Crop
-                )
+                        .size(36.dp)
+                        .background(
+                            color = mColors.secondary,
+                            shape = mShapes.small
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    AsyncImage(
+                        model = "https://image.tmdb.org/t/p/w500/${image}",
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clip(mShapes.extraSmall),
+                        contentScale = ContentScale.Crop
+                    )
+                }
             } else {
                 Icon(
                     painter = painterResource(id = MoviesAppIcons.TV),
