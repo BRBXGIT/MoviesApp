@@ -33,14 +33,13 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun MovieReview(
-    review: Result
+    review: Result,
+    modifier: Modifier
 ) {
     Row(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+        modifier = modifier
     ) {
         if(review.authorDetails.avatarPath == null) {
             Icon(

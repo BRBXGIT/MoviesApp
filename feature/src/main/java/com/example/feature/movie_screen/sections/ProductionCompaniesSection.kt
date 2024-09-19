@@ -21,12 +21,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
+import coil.size.Size
 import com.example.core.data.models.movie_details_response.ProductionCompany
+import com.example.core.design_system.animated_shimmer.AnimatedShimmer
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mShapes
@@ -90,13 +96,19 @@ fun ProductionCompanyCard(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    AsyncImage(
-                        model = "https://image.tmdb.org/t/p/w500/${image}",
+                    SubcomposeAsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data("https://image.tmdb.org/t/p/w500/${image}")
+                            .crossfade(500)
+                            .size(Size.ORIGINAL)
+                            .build(),
                         contentDescription = null,
                         modifier = Modifier
                             .size(32.dp)
-                            .clip(mShapes.extraSmall),
-                        contentScale = ContentScale.Crop
+                            .clip(mShapes.small),
+                        filterQuality = FilterQuality.Low,
+                        contentScale = ContentScale.Crop,
+                        loading = { AnimatedShimmer() }
                     )
                 }
             } else {

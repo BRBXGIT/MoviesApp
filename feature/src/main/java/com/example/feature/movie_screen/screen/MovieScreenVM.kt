@@ -42,8 +42,12 @@ class MovieScreenVM @Inject constructor(
         }
     }
 
-    fun getMovieReviews(movieId: Int): Flow<PagingData<Result>> {
-        return repository.getMovieReviews(movieId).cachedIn(viewModelScope)
+    private var movieId: Int = 0
+    fun setMovieId(id: Int) {
+        movieId = id
+    }
+    val movieReviews by lazy {
+        repository.getMovieReviews(movieId).cachedIn(viewModelScope)
     }
 
     private val _movieVideosResponse = MutableStateFlow<MovieVideosResponse?>(null)

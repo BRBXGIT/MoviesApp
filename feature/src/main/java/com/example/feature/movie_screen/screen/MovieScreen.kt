@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
@@ -32,7 +34,8 @@ fun MovieScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: MovieScreenVM,
 ) {
-    val movieReviews = viewModel.getMovieReviews(movieId).collectAsLazyPagingItems()
+    viewModel.setMovieId(movieId)
+    val movieReviews = viewModel.movieReviews.collectAsLazyPagingItems()
 
     val movieDetails = viewModel.movieDetails.collectAsStateWithLifecycle().value
     val movieVideos = viewModel.movieVideos.collectAsStateWithLifecycle().value
@@ -85,11 +88,17 @@ fun MovieScreen(
                     )
                 }
 
-                items(movieReviews.itemCount) { index ->
+                items(movieReviews.itemCount, key = { it }) { index ->
                     val review = movieReviews[index]
 
                     review?.let {
-                        MovieReview(review = review)
+                        MovieReview(
+                            review = review,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                                .animateItem()
+                        )
                     }
                 }
             }
