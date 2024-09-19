@@ -33,6 +33,7 @@ uiTextGoogleFonts = "1.7.1"
 
 lottie = "6.5.2"
 
+youtubePlayer = "12.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -73,6 +74,7 @@ androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text
 
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
+youtubePlayer = { module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "youtubePlayer" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

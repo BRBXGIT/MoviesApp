@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
@@ -22,6 +24,7 @@ import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
 import com.example.feature.movie_screen.sections.MovieReview
 import com.example.feature.movie_screen.sections.ProductionCompaniesSection
+import com.example.feature.movie_screen.sections.TrailerSection
 
 @Composable
 fun MovieScreen(
@@ -29,11 +32,16 @@ fun MovieScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: MovieScreenVM,
 ) {
+    val movieReviews = viewModel.getMovieReviews(movieId).collectAsLazyPagingItems()
+
     val movieDetails = viewModel.movieDetails.collectAsStateWithLifecycle().value
-    LaunchedEffect(movieDetails == null) {
+    val movieVideos = viewModel.movieVideos.collectAsStateWithLifecycle().value
+    LaunchedEffect(key1 = (movieDetails == null)) {
         viewModel.setMovieDetails(movieId)
     }
-    val movieReviews = viewModel.getMovieReviews(movieId).collectAsLazyPagingItems()
+    LaunchedEffect(key1 = (movieVideos == null)) {
+        viewModel.setMovieVideos(movieId)
+    }
 
     if(movieDetails != null) {
         LazyColumn(
@@ -51,26 +59,43 @@ fun MovieScreen(
                 DescriptionSection(description = movieDetails.overview)
             }
 
+            if(movieVideos != null) {
+                val movieTrailers = movieVideos.results.filter { it.name == "Trailer" }
+                if(movieTrailers.isNotEmpty()) {
+                    val movieTrailerId = movieTrailers[0].key
+
+                    item {
+                        TrailerSection(trailerId = movieTrailerId)
+                    }
+                }
+            }
+
             item {
                 ProductionCompaniesSection(productionCompanies = movieDetails.productionCompanies)
             }
 
-            item {
-                Text(
-                    text = "Reviews",
-                    style = mTypography.titleMedium.copy(
-                        color = mColors.onSecondaryContainer
-                    ),
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+            if(movieReviews.itemCount != 0) {
+                item {
+                    Text(
+                        text = "Reviews",
+                        style = mTypography.titleMedium.copy(
+                            color = mColors.onSecondaryContainer
+                        ),
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
+
+                items(movieReviews.itemCount) { index ->
+                    val review = movieReviews[index]
+
+                    review?.let {
+                        MovieReview(review = review)
+                    }
+                }
             }
 
-            items(movieReviews.itemCount) { index ->
-                val review = movieReviews[index]
-
-                review?.let {
-                    MovieReview(review = review)
-                }
+            item {
+                Spacer(modifier = Modifier.height(0.dp))
             }
         }
     } else {

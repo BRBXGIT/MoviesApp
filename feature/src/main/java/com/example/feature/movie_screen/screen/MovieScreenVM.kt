@@ -6,8 +6,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
-import com.example.core.data.models.movie_detail.MovieDetailsResponse
-import com.example.core.data.models.movie_reviews.Result
+import com.example.core.data.models.movie_details_response.MovieDetailsResponse
+import com.example.core.data.models.movie_reviews_response.Result
+import com.example.core.data.models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.repos.MovieScreenRepoImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -43,5 +44,22 @@ class MovieScreenVM @Inject constructor(
 
     fun getMovieReviews(movieId: Int): Flow<PagingData<Result>> {
         return repository.getMovieReviews(movieId).cachedIn(viewModelScope)
+    }
+
+    private val _movieVideosResponse = MutableStateFlow<MovieVideosResponse?>(null)
+    val movieVideos = _movieVideosResponse.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        null
+    )
+
+    fun setMovieVideos(movieId: Int) {
+        viewModelScope.launch(dispatcherIo) {
+            try {
+                _movieVideosResponse.value = repository.getMovieVideos(movieId)
+            } catch(e: Exception) {
+                println(e.message)
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.core.data.models.movie_detail.MovieDetailsResponse
+import com.example.core.data.models.movie_details_response.MovieDetailsResponse
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mShapes
 import com.example.core.ui.theme.mTypography

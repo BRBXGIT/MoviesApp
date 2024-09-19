@@ -48,6 +48,8 @@ dependencies {
     //Core module
     implementation(project(":core"))
 
+    //Youtube player
+    implementation(libs.youtubePlayer)
     //Material3
     implementation(libs.androidx.material3)
     //Hilt impl

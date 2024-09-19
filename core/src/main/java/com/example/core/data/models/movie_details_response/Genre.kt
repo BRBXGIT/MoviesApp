@@ -1,4 +1,4 @@
-package com.example.core.data.models.movie_detail
+package com.example.core.data.models.movie_details_response
 
 data class Genre(
     val id: Int,

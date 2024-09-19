@@ -3,8 +3,9 @@ package com.example.core.data.repos
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.core.data.models.movie_detail.MovieDetailsResponse
-import com.example.core.data.models.movie_reviews.Result
+import com.example.core.data.models.movie_details_response.MovieDetailsResponse
+import com.example.core.data.models.movie_reviews_response.Result
+import com.example.core.data.models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.remote.MovieReviewsPagingSource
 import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.domain.MovieScreenRepo
@@ -27,5 +28,9 @@ class MovieScreenRepoImpl @Inject constructor(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = { MovieReviewsPagingSource(apiInstance, movieId) }
         ).flow
+    }
+
+    override suspend fun getMovieVideos(movieId: Int): MovieVideosResponse {
+        return apiInstance.getMovieVideos(accessToken, movieId)
     }
 }

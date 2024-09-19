@@ -23,9 +23,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.core.data.models.movie_detail.ProductionCompany
+import com.example.core.data.models.movie_details_response.ProductionCompany
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mShapes
@@ -111,7 +112,9 @@ fun ProductionCompanyCard(
             ) {
                 Text(
                     text = name,
-                    style = mTypography.bodyMedium
+                    style = mTypography.bodyMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    )
                 )
 
                 Text(
