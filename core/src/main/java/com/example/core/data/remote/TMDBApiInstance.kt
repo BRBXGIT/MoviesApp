@@ -5,6 +5,7 @@ import com.example.core.data.models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_reviews_response.MovieReviewsResponse
 import com.example.core.data.models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
+import com.example.core.data.models.request_token_response.RequestTokenResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
@@ -40,4 +41,9 @@ interface TMDBApiInstance {
         @Header("Authorization") accessToken: String,
         @Path("movieId") movieId: Int
     ): MovieVideosResponse
+
+    @GET("authentication/token/new")
+    suspend fun getRequestToken(
+        @Header("Authorization") accessToken: String
+    ): RequestTokenResponse
 }
