@@ -20,6 +20,8 @@ import com.example.feature.common.bottom_bar.CommonBottomBar
 import com.example.core.design_system.snackbars.ObserveAsEvents
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.top_bar.CommonTopAppBar
+import com.example.feature.auth_screen.navigation.AuthScreenRoute
+import com.example.feature.auth_screen.navigation.authScreen
 import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
@@ -42,6 +44,7 @@ fun NavGraph() {
                 message = event.message,
                 actionLabel = event.action?.name,
                 duration = SnackbarDuration.Indefinite,
+                withDismissAction = true
             )
 
             if(result == SnackbarResult.ActionPerformed) {
@@ -60,16 +63,18 @@ fun NavGraph() {
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
-            CommonTopAppBar(
-                title = when(currentDestination) {
-                    "LatestMoviesScreenRoute" -> "Latest movies"
-                    "FavoritesScreenRoute" -> "Favorites"
-                    "ProfileScreenRoute" -> "Profile"
-                    else -> ""
-                },
-                scrollBehavior = scrollBehavior,
-                navController = navController
-            )
+            if(currentDestination != "AuthScreenRoute") {
+                CommonTopAppBar(
+                    title = when(currentDestination) {
+                        "LatestMoviesScreenRoute" -> "Latest movies"
+                        "FavoritesScreenRoute" -> "Favorites"
+                        "ProfileScreenRoute" -> "Profile"
+                        else -> ""
+                    },
+                    scrollBehavior = scrollBehavior,
+                    navController = navController
+                )
+            }
         },
         bottomBar = {
             CommonBottomBar(
@@ -80,7 +85,7 @@ fun NavGraph() {
     ) { mainScaffoldPadding ->
         NavHost(
             navController = navController,
-            startDestination = LatestMoviesScreenRoute
+            startDestination = AuthScreenRoute
         ) {
             latestMoviesScreen(
                 mainScaffoldPadding = mainScaffoldPadding,
@@ -92,6 +97,8 @@ fun NavGraph() {
             profileScreen(mainScaffoldPadding)
 
             movieScreen(mainScaffoldPadding)
+
+            authScreen(mainScaffoldPadding)
         }
     }
 }
