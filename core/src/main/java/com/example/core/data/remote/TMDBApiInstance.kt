@@ -1,13 +1,18 @@
 package com.example.core.data.remote
 
+import com.example.core.data.models.account_details_response.AccountDetailsResponse
 import com.example.core.data.models.latest_movies_response.LatestMoviesResponse
 import com.example.core.data.models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_reviews_response.MovieReviewsResponse
 import com.example.core.data.models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
 import com.example.core.data.models.request_token_response.RequestTokenResponse
+import com.example.core.data.models.session_request.SessionRequest
+import com.example.core.data.models.session_response.SessionResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -46,4 +51,16 @@ interface TMDBApiInstance {
     suspend fun getRequestToken(
         @Header("Authorization") accessToken: String
     ): RequestTokenResponse
+
+    @POST("authentication/session/new")
+    suspend fun createSession(
+        @Header("Authorization") accessToken: String,
+        @Body sessionRequest: SessionRequest
+    ): SessionResponse
+
+    @GET("account")
+    suspend fun getAccountDetails(
+        @Header("Authorization") accessToken: String,
+        @Query("session_id") sessionId: String
+    ): AccountDetailsResponse
 }

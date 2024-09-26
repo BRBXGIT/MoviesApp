@@ -81,7 +81,9 @@ fun AuthScreen(
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
             Button(
-                onClick = {  },
+                onClick = {
+
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter),
