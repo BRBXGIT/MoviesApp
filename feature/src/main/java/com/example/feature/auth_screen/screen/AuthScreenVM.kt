@@ -49,7 +49,6 @@ class AuthScreenVM @Inject constructor(
     }
 
     private val _sessionId = MutableStateFlow("")
-    val sessionId = _sessionId.asStateFlow()
 
     fun setSessionId() {
         viewModelScope.launch(dispatcherIo) {
@@ -58,6 +57,14 @@ class AuthScreenVM @Inject constructor(
 
                 if(response.success) {
                     _sessionId.value = response.sessionId
+
+                    val tmdbUser = repository.getAccountDetails(_sessionId.value)
+                    val localUser = TMDBUser(
+                        sessionId = _sessionId.value,
+                        userId = tmdbUser.id
+                    )
+
+                    repository.upsertTMDBUser(localUser)
                 } else {
                     SnackbarController.sendEvent(
                         SnackbarEvent(
@@ -72,18 +79,6 @@ class AuthScreenVM @Inject constructor(
                     )
                 )
             }
-        }
-    }
-
-    fun upsertUserToLocalDb() {
-        viewModelScope.launch(dispatcherIo) {
-            val tmdbUser = repository.getAccountDetails(sessionId.value)
-            val localUser = TMDBUser(
-                sessionId = _sessionId.value,
-                userId = tmdbUser.id
-            )
-
-            repository.upsertTMDBUser(localUser)
         }
     }
 }
