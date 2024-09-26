@@ -47,13 +47,16 @@ class AuthScreenVM @Inject constructor(
         }
     }
 
-    fun getSessionId() {
+    private val _sessionId = MutableStateFlow("")
+    val sessionId = _sessionId.asStateFlow()
+
+    fun setSessionId() {
         viewModelScope.launch(dispatcherIo) {
             try {
                 val response = repository.createSession(SessionRequest(requestToken = _requestToken.value))
 
                 if(response.success) {
-
+                    _sessionId.value = response.sessionId
                 } else {
                     SnackbarController.sendEvent(
                         SnackbarEvent(

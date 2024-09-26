@@ -81,9 +81,7 @@ fun AuthScreen(
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
             Button(
-                onClick = {
-
-                },
+                onClick = { viewModel.setSessionId() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter),

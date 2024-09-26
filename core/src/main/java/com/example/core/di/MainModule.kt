@@ -1,5 +1,9 @@
 package com.example.core.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.core.data.local.TMDBUserDao
+import com.example.core.data.local.UserDb
 import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.data.repos.AuthRepoImpl
 import com.example.core.data.repos.LatestMoviesScreenRepoImpl
@@ -10,6 +14,7 @@ import com.example.core.domain.MovieScreenRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,6 +37,16 @@ object MainModule {
 
     @Provides
     @Singleton
+    fun provideUserDao(@ApplicationContext context: Context): TMDBUserDao {
+        return Room.databaseBuilder(
+            context = context,
+            klass = UserDb::class.java,
+            name = "UserDb"
+        ).build().TMDBUserDao()
+    }
+
+    @Provides
+    @Singleton
     fun provideLatestMoviesScreenRepo(apiInstance: TMDBApiInstance): LatestMoviesScreenRepo {
         return LatestMoviesScreenRepoImpl(apiInstance)
     }
@@ -44,7 +59,7 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepo(apiInstance: TMDBApiInstance): AuthRepo {
-        return AuthRepoImpl(apiInstance)
+    fun provideAuthRepo(apiInstance: TMDBApiInstance, tmdbUserDao: TMDBUserDao): AuthRepo {
+        return AuthRepoImpl(apiInstance, tmdbUserDao)
     }
 }
