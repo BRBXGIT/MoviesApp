@@ -5,5 +5,5 @@ import androidx.room.Entity
 @Entity
 data class TMDBUser(
     val sessionId: String,
-    val userId: String
+    val userId: Int
 )

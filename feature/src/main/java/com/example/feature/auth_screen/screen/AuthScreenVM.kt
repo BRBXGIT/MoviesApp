@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
+import com.example.core.data.local.TMDBUser
 import com.example.core.data.models.session_request.SessionRequest
 import com.example.core.data.repos.AuthRepoImpl
 import com.example.core.design_system.snackbars.SnackbarController
@@ -71,6 +72,18 @@ class AuthScreenVM @Inject constructor(
                     )
                 )
             }
+        }
+    }
+
+    fun upsertUserToLocalDb() {
+        viewModelScope.launch(dispatcherIo) {
+            val tmdbUser = repository.getAccountDetails(sessionId.value)
+            val localUser = TMDBUser(
+                sessionId = _sessionId.value,
+                userId = tmdbUser.id
+            )
+
+            repository.upsertTMDBUser(localUser)
         }
     }
 }
