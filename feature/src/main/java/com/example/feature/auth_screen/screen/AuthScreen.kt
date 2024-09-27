@@ -7,7 +7,6 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,11 +14,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,14 +34,19 @@ import androidx.navigation.NavHostController
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mShapes
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: AuthScreenVM,
     context: Context = LocalContext.current,
     navController: NavHostController,
-    prefs: SharedPreferences
+    prefs: SharedPreferences,
+    scope: CoroutineScope = rememberCoroutineScope()
 ) {
     val localUserData by viewModel.localUserData.collectAsState(initial = emptyList())
     LaunchedEffect(localUserData) {
@@ -49,7 +59,10 @@ fun AuthScreen(
         }
     }
 
-    Box(
+    var isRefreshing by rememberSaveable { mutableStateOf(false) }
+    PullToRefreshBox(
+        isRefreshing = isRefreshing,
+        onRefresh = { /*TODO*/ },
         modifier = Modifier
             .fillMaxSize()
             .background(mColors.background)
@@ -67,7 +80,14 @@ fun AuthScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Button(
-                onClick = { viewModel.setRequestToken() },
+                onClick = {
+                    scope.launch {
+                        isRefreshing = true
+                        delay(1000)
+                        viewModel.setRequestToken()
+                        isRefreshing = false
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 shape = mShapes.small
             ) {
@@ -97,7 +117,14 @@ fun AuthScreen(
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
             Button(
-                onClick = { viewModel.setSessionId() },
+                onClick = {
+                    scope.launch {
+                        isRefreshing = true
+                        delay(1000)
+                        viewModel.setSessionId()
+                        isRefreshing = false
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter),
