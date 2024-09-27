@@ -5,6 +5,7 @@ import com.example.core.data.models.account_details_response.AccountDetailsRespo
 import com.example.core.data.models.request_token_response.RequestTokenResponse
 import com.example.core.data.models.session_request.SessionRequest
 import com.example.core.data.models.session_response.SessionResponse
+import kotlinx.coroutines.flow.Flow
 
 interface AuthRepo {
 
@@ -15,4 +16,6 @@ interface AuthRepo {
     suspend fun getAccountDetails(sessionId: String): AccountDetailsResponse
 
     suspend fun upsertTMDBUser(tmdbUser: TMDBUser)
+
+    fun getLocalUserData(): Flow<List<TMDBUser>>
 }

@@ -12,5 +12,5 @@ interface TMDBUserDao {
     suspend fun upsertUser(tmdbUser: TMDBUser)
 
     @Query("SELECT * FROM tmdbuser")
-    fun getUser(): Flow<TMDBUser>
+    fun getUser(): Flow<List<TMDBUser>>
 }

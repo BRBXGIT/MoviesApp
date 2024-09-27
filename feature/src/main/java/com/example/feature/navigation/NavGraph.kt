@@ -1,5 +1,6 @@
 package com.example.feature.navigation
 
+import android.content.SharedPreferences
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -16,12 +17,12 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.feature.common.bottom_bar.CommonBottomBar
 import com.example.core.design_system.snackbars.ObserveAsEvents
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.top_bar.CommonTopAppBar
 import com.example.feature.auth_screen.navigation.AuthScreenRoute
 import com.example.feature.auth_screen.navigation.authScreen
+import com.example.feature.common.bottom_bar.CommonBottomBar
 import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
@@ -31,7 +32,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavGraph() {
+fun NavGraph(
+    prefs: SharedPreferences
+) {
     val navController = rememberNavController()
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -85,7 +88,8 @@ fun NavGraph() {
     ) { mainScaffoldPadding ->
         NavHost(
             navController = navController,
-            startDestination = AuthScreenRoute
+            startDestination = if(!prefs.getBoolean("authenticated", false))
+                AuthScreenRoute else LatestMoviesScreenRoute
         ) {
             latestMoviesScreen(
                 mainScaffoldPadding = mainScaffoldPadding,
@@ -98,7 +102,11 @@ fun NavGraph() {
 
             movieScreen(mainScaffoldPadding)
 
-            authScreen(mainScaffoldPadding)
+            authScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                prefs = prefs,
+                navController = navController
+            )
         }
     }
 }

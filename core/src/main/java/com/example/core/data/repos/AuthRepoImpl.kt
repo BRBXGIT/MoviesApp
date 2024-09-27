@@ -9,6 +9,7 @@ import com.example.core.data.models.session_response.SessionResponse
 import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.domain.AuthRepo
 import com.example.core.utils.Utils
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AuthRepoImpl @Inject constructor(
@@ -32,5 +33,9 @@ class AuthRepoImpl @Inject constructor(
 
     override suspend fun upsertTMDBUser(tmdbUser: TMDBUser) {
         tmdbUserDao.upsertUser(tmdbUser)
+    }
+
+    override fun getLocalUserData(): Flow<List<TMDBUser>> {
+        return tmdbUserDao.getUser()
     }
 }

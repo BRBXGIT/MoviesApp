@@ -2,6 +2,7 @@ package com.example.feature.auth_screen.screen
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -16,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,15 +25,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mShapes
+import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 
 @Composable
 fun AuthScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: AuthScreenVM,
-    context: Context = LocalContext.current
+    context: Context = LocalContext.current,
+    navController: NavHostController,
+    prefs: SharedPreferences
 ) {
+    val localUserData by viewModel.localUserData.collectAsState(initial = emptyList())
+    LaunchedEffect(localUserData) {
+        if(localUserData.isNotEmpty()) {
+            prefs.edit().apply {
+                putBoolean("authenticated", true)
+                apply()
+            }
+            navController.navigate(LatestMoviesScreenRoute)
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()

@@ -41,7 +41,7 @@ class AuthScreenVM @Inject constructor(
             } catch(e: Exception) {
                 SnackbarController.sendEvent(
                     SnackbarEvent(
-                        message = "Something went wrong :("
+                        message = "Internet exception, try with vpn :)"
                     )
                 )
             }
@@ -75,10 +75,12 @@ class AuthScreenVM @Inject constructor(
             } catch(e: Exception) {
                 SnackbarController.sendEvent(
                     SnackbarEvent(
-                        message = "Something went wrong :("
+                        message = "Internet exception, try with vpn :)"
                     )
                 )
             }
         }
     }
+
+    val localUserData = repository.getLocalUserData()
 }

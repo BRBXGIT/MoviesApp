@@ -1,5 +1,6 @@
 package com.example.moviesapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,7 +16,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviesAppTheme {
-                NavGraph()
+                val prefs = this.getPreferences(Context.MODE_PRIVATE)
+
+                NavGraph(prefs)
             }
         }
     }
