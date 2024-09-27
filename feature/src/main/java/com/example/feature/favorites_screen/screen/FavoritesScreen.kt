@@ -24,7 +24,7 @@ import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.core.ui.theme.mColors
 import com.example.feature.favorites_screen.sections.FavoriteMoviesLCSection
-import com.example.feature.latest_movies_screen.sections.ErrorSection
+import com.example.feature.favorites_screen.sections.FavoritesErrorSection
 
 @Composable
 fun FavoritesScreen(
@@ -53,7 +53,7 @@ fun FavoritesScreen(
                 CircularProgressIndicator()
             }
         } else if(error) {
-            ErrorSection(errorMessage = errorMessage)
+            FavoritesErrorSection(errorMessage = errorMessage)
         } else {
             FavoriteMoviesLCSection(
                 movies = userFavorites,

@@ -1,4 +1,4 @@
-package com.example.feature.latest_movies_screen.sections
+package com.example.feature.favorites_screen.sections
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,10 +24,10 @@ import com.example.core.ui.theme.mTypography
 import com.example.feature.R
 
 @Composable
-fun ErrorSection(
+fun FavoritesErrorSection(
     errorMessage: String,
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.another))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.broken_heart_animation))
     Box(
         modifier = Modifier
             .fillMaxSize()
