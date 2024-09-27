@@ -27,7 +27,7 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
-import com.example.core.data.models.latest_movies_response.Result
+import com.example.core.data.models.movies_previews_response.Result
 import com.example.core.data.models.movies_genres_response.Genre
 import com.example.core.design_system.animated_shimmer.AnimatedShimmer
 import com.example.core.ui.theme.mColors

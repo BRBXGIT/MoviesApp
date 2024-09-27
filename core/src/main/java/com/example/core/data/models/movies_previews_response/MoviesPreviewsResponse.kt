@@ -1,8 +1,8 @@
-package com.example.core.data.models.latest_movies_response
+package com.example.core.data.models.movies_previews_response
 
 import com.google.gson.annotations.SerializedName
 
-data class LatestMoviesResponse(
+data class MoviesPreviewsResponse(
     val page: Int,
     val results: List<Result>,
     @SerializedName("total_pages")

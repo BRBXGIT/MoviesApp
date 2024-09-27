@@ -1,11 +1,11 @@
 package com.example.core.data.remote
 
 import com.example.core.data.models.account_details_response.AccountDetailsResponse
-import com.example.core.data.models.latest_movies_response.LatestMoviesResponse
 import com.example.core.data.models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_reviews_response.MovieReviewsResponse
 import com.example.core.data.models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
+import com.example.core.data.models.movies_previews_response.MoviesPreviewsResponse
 import com.example.core.data.models.request_token_response.RequestTokenResponse
 import com.example.core.data.models.session_request.SessionRequest
 import com.example.core.data.models.session_response.SessionResponse
@@ -22,7 +22,7 @@ interface TMDBApiInstance {
     suspend fun getTrendingMovies(
         @Query("page") page: Int,
         @Header("Authorization") accessToken: String
-    ): LatestMoviesResponse
+    ): MoviesPreviewsResponse
 
     @GET("genre/movie/list")
     suspend fun getAllMoviesGenres(
@@ -63,4 +63,11 @@ interface TMDBApiInstance {
         @Header("Authorization") accessToken: String,
         @Query("session_id") sessionId: String
     ): AccountDetailsResponse
+
+    @GET("{accountId}/favorite/movies")
+    suspend fun getUserFavorites(
+        @Header("Authorization") accessToken: String,
+        @Path("accountId") accountId: Int,
+        @Query("page") page: Int
+    ): MoviesPreviewsResponse
 }

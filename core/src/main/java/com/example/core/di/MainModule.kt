@@ -8,9 +8,11 @@ import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.data.repos.AuthRepoImpl
 import com.example.core.data.repos.LatestMoviesScreenRepoImpl
 import com.example.core.data.repos.MovieScreenRepoImpl
+import com.example.core.data.repos.UserFavoritesRepoImpl
 import com.example.core.domain.AuthRepo
 import com.example.core.domain.LatestMoviesScreenRepo
 import com.example.core.domain.MovieScreenRepo
+import com.example.core.domain.UserFavoritesScreenRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,5 +63,11 @@ object MainModule {
     @Singleton
     fun provideAuthRepo(apiInstance: TMDBApiInstance, tmdbUserDao: TMDBUserDao): AuthRepo {
         return AuthRepoImpl(apiInstance, tmdbUserDao)
+    }
+
+    @Provides
+    @Singleton
+    fun userFavoritesScreenRepo(apiInstance: TMDBApiInstance): UserFavoritesScreenRepo {
+        return UserFavoritesRepoImpl(apiInstance)
     }
 }

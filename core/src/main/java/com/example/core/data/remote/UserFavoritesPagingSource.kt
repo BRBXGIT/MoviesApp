@@ -7,8 +7,9 @@ import com.example.core.utils.Utils
 import retrofit2.HttpException
 import java.io.IOException
 
-class LatestMoviesPagingSource(
-    private val apiInstance: TMDBApiInstance
+class UserFavoritesPagingSource(
+    private val apiInstance: TMDBApiInstance,
+    private val accountId: Int
 ): PagingSource<Int, Result>() {
     override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
         return state.anchorPosition
@@ -19,7 +20,7 @@ class LatestMoviesPagingSource(
         val accessToken = Utils.ACCESS_TOKEN
 
         return try {
-            val movies = apiInstance.getTrendingMovies(startPage, accessToken)
+            val movies = apiInstance.getUserFavorites(accessToken, accountId, startPage)
             val nextPage = if(movies.results.isEmpty()) null else movies.page + 1
 
             LoadResult.Page(

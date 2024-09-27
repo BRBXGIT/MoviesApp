@@ -3,7 +3,7 @@ package com.example.core.data.repos
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.core.data.models.latest_movies_response.Result
+import com.example.core.data.models.movies_previews_response.Result
 import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
 import com.example.core.data.remote.LatestMoviesPagingSource
 import com.example.core.data.remote.TMDBApiInstance
