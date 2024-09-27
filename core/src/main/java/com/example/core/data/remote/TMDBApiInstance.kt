@@ -70,4 +70,10 @@ interface TMDBApiInstance {
         @Path("accountId") accountId: Int,
         @Query("page") page: Int
     ): MoviesPreviewsResponse
+
+    @GET("account/{accountId}")
+    fun getAccountDetailsById(
+        @Header("Authorization") accessToken: String,
+        @Path("accountId") accountId: Int
+    ):AccountDetailsResponse
 }
