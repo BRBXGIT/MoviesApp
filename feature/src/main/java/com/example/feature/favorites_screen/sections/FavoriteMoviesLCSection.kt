@@ -1,4 +1,4 @@
-package com.example.feature.latest_movies_screen.sections
+package com.example.feature.favorites_screen.sections
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,7 +14,7 @@ import com.example.core.design_system.movie_card.MovieCard
 import com.example.feature.movie_screen.navigation.MovieScreenRoute
 
 @Composable
-fun LatestMoviesLCSection(
+fun FavoriteMoviesLCSection(
     movies: LazyPagingItems<Result>,
     genres: List<Genre>,
     navController: NavHostController
@@ -43,9 +43,11 @@ fun LatestMoviesLCSection(
                     genres = movieGenres.joinToString(separator = ", ") { it.name },
                     index = index,
                     onMovieClick = {
-                        navController.navigate(MovieScreenRoute(
-                            movieId = movie.id
-                        ))
+                        navController.navigate(
+                            MovieScreenRoute(
+                                movieId = movie.id
+                            )
+                        )
                     }
                 )
             }

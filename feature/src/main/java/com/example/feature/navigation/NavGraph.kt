@@ -96,7 +96,10 @@ fun NavGraph(
                 navController = navController
             )
 
-            favoritesScreen(mainScaffoldPadding)
+            favoritesScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                navController = navController
+            )
 
             profileScreen(mainScaffoldPadding)
 

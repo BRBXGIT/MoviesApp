@@ -64,7 +64,7 @@ interface TMDBApiInstance {
         @Query("session_id") sessionId: String
     ): AccountDetailsResponse
 
-    @GET("{accountId}/favorite/movies")
+    @GET("account/{accountId}/favorite/movies")
     suspend fun getUserFavorites(
         @Header("Authorization") accessToken: String,
         @Path("accountId") accountId: Int,

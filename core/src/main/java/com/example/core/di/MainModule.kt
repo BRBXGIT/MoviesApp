@@ -67,7 +67,7 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun userFavoritesScreenRepo(apiInstance: TMDBApiInstance): UserFavoritesScreenRepo {
-        return UserFavoritesRepoImpl(apiInstance)
+    fun userFavoritesScreenRepo(apiInstance: TMDBApiInstance, tmdbUserDao: TMDBUserDao): UserFavoritesScreenRepo {
+        return UserFavoritesRepoImpl(apiInstance, tmdbUserDao)
     }
 }
