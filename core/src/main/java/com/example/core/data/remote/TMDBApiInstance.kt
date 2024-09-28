@@ -9,6 +9,7 @@ import com.example.core.data.models.movies_previews_response.MoviesPreviewsRespo
 import com.example.core.data.models.request_token_response.RequestTokenResponse
 import com.example.core.data.models.session_request.SessionRequest
 import com.example.core.data.models.session_response.SessionResponse
+import com.example.core.data.models.user_lists_response.UserListsResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -71,9 +72,11 @@ interface TMDBApiInstance {
         @Query("page") page: Int
     ): MoviesPreviewsResponse
 
-    @GET("account/{accountId}")
-    fun getAccountDetailsById(
+    @GET("account/{accountId}/lists")
+    suspend fun getUserLists(
         @Header("Authorization") accessToken: String,
-        @Path("accountId") accountId: Int
-    ):AccountDetailsResponse
+        @Path("accountId") accountId: Int,
+        @Query("page") page: Int,
+        @Query("session_id") sessionId: String
+    ): UserListsResponse
 }

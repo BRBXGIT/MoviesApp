@@ -101,7 +101,10 @@ fun NavGraph(
                 navController = navController
             )
 
-            profileScreen(mainScaffoldPadding)
+            profileScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                scrollBehavior = scrollBehavior
+            )
 
             movieScreen(mainScaffoldPadding)
 

@@ -1,9 +1,14 @@
 package com.example.core.data.repos
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
 import com.example.core.data.models.account_details_response.AccountDetailsResponse
+import com.example.core.data.models.user_lists_response.Result
 import com.example.core.data.remote.TMDBApiInstance
+import com.example.core.data.remote.UserListsPagingSource
 import com.example.core.domain.ProfileScreenRepo
 import com.example.core.utils.Utils
 import kotlinx.coroutines.flow.Flow
@@ -16,11 +21,18 @@ class ProfileScreenRepoImpl @Inject constructor(
 
     private val accessToken = Utils.ACCESS_TOKEN
 
-    override suspend fun getAccountDetailsById(accountId: Int): AccountDetailsResponse {
-        return apiInstance.getAccountDetailsById(accessToken, accountId)
+    override suspend fun getAccountDetails(sessionId: String): AccountDetailsResponse {
+        return apiInstance.getAccountDetails(accessToken, sessionId)
     }
 
-    override suspend fun getUser(): Flow<List<TMDBUser>> {
+    override fun getUser(): Flow<List<TMDBUser>> {
         return tmdbUserDao.getUser()
+    }
+
+    override fun getUserLists(accountId: Int, sessionId: String): Flow<PagingData<Result>> {
+        return Pager(
+            config = PagingConfig(pageSize = 20, enablePlaceholders = false),
+            pagingSourceFactory = { UserListsPagingSource(apiInstance, accountId, sessionId) }
+        ).flow
     }
 }
