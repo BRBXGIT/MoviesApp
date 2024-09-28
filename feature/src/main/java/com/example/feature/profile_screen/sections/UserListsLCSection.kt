@@ -12,7 +12,10 @@ import com.example.core.design_system.list_card.ListCard
 
 @Composable
 fun UserListsLCSection(
-    userLists: LazyPagingItems<Result>
+    userLists: LazyPagingItems<Result>,
+    userName: String,
+    avatarPath: String,
+    gravatarPath: String
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -23,6 +26,14 @@ fun UserListsLCSection(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        item {
+            UserInfoHeader(
+                avatarPath = avatarPath,
+                username = userName,
+                gravatarPath = gravatarPath
+            )
+        }
+
         items(userLists.itemCount) { index ->
             val list = userLists[index]
 

@@ -56,14 +56,14 @@ fun NavGraph(
         }
     }
 
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val mainTopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+            .nestedScroll(mainTopAppBarScrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             if(currentDestination != "AuthScreenRoute") {
@@ -74,7 +74,7 @@ fun NavGraph(
                         "ProfileScreenRoute" -> "Profile"
                         else -> ""
                     },
-                    scrollBehavior = scrollBehavior,
+                    scrollBehavior = mainTopAppBarScrollBehavior,
                     navController = navController
                 )
             }
@@ -101,10 +101,7 @@ fun NavGraph(
                 navController = navController
             )
 
-            profileScreen(
-                mainScaffoldPadding = mainScaffoldPadding,
-                scrollBehavior = scrollBehavior
-            )
+            profileScreen(mainScaffoldPadding = mainScaffoldPadding,)
 
             movieScreen(mainScaffoldPadding)
 
