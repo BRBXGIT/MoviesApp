@@ -3,15 +3,17 @@ package com.example.feature.profile_screen.screen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -26,12 +28,17 @@ import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.core.ui.theme.mColors
 import com.example.feature.R
 import com.example.feature.profile_screen.sections.UserListsLCSection
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: ProfileScreenVM,
+    scope: CoroutineScope = rememberCoroutineScope()
 ) {
     val user = viewModel.userDetails.collectAsStateWithLifecycle().value
     val userLists = viewModel.userLists.collectAsLazyPagingItems()
@@ -62,7 +69,18 @@ fun ProfileScreen(
                 errorMessage = listsErrorMessage
             )
         } else {
-            Column(
+            var isRefreshing by rememberSaveable { mutableStateOf(false) }
+
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = {
+                    scope.launch {
+                        isRefreshing = true
+                        delay(2000)
+                        userLists.refresh()
+                        isRefreshing = false
+                    }
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .background(mColors.background)

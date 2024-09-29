@@ -89,17 +89,13 @@ class ProfileScreenVM @Inject constructor(
                     if(response.success) {
                         SnackbarController.sendEvent(
                             SnackbarEvent(
-                                message = "Success"
+                                message = "Created, you can pull to update :)"
                             )
                         )
                     } else {
                         SnackbarController.sendEvent(
                             SnackbarEvent(
                                 message = "Something went wrong",
-                                action = SnackbarAction(
-                                    name = "Refresh",
-                                    action = { createList(listData) }
-                                )
                             )
                         )
                     }
@@ -108,10 +104,6 @@ class ProfileScreenVM @Inject constructor(
                 SnackbarController.sendEvent(
                     SnackbarEvent(
                         message = "Internet exception, try with vpn :)",
-                        action = SnackbarAction(
-                            name = "Refresh",
-                            action = { createList(listData) }
-                        )
                     )
                 )
             }

@@ -10,11 +10,14 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -28,9 +31,9 @@ import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
 import com.example.feature.movie_screen.navigation.movieScreen
+import com.example.feature.profile_screen.create_list_bottom_sheet.CreateListBottomSheet
 import com.example.feature.profile_screen.navigation.profileScreen
 import com.example.feature.profile_screen.profile_screen_action_btn.ProfileScreenActionBtn
-import com.example.feature.profile_screen.screen.ProfileScreenVM
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,6 +41,13 @@ import kotlinx.coroutines.launch
 fun NavGraph(
     prefs: SharedPreferences
 ) {
+    var createListBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
+    if(createListBottomSheetOpen) {
+        CreateListBottomSheet(
+            onDismissRequest = { createListBottomSheetOpen = false },
+        )
+    }
+
     val navController = rememberNavController()
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -64,7 +74,6 @@ fun NavGraph(
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
 
-    val profileScreenVM = hiltViewModel<ProfileScreenVM>()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -91,9 +100,10 @@ fun NavGraph(
             )
         },
         floatingActionButton = {
-            ProfileScreenActionBtn(currentDestination = currentDestination) {
-
-            }
+            ProfileScreenActionBtn(
+                currentDestination = currentDestination,
+                onClick = { createListBottomSheetOpen = true }
+            )
         },
     ) { mainScaffoldPadding ->
         NavHost(
@@ -111,10 +121,7 @@ fun NavGraph(
                 navController = navController
             )
 
-            profileScreen(
-                mainScaffoldPadding = mainScaffoldPadding,
-                profileScreenVM = profileScreenVM
-            )
+            profileScreen(mainScaffoldPadding = mainScaffoldPadding)
 
             movieScreen(mainScaffoldPadding)
 
