@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -28,6 +29,8 @@ import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRou
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
 import com.example.feature.movie_screen.navigation.movieScreen
 import com.example.feature.profile_screen.navigation.profileScreen
+import com.example.feature.profile_screen.profile_screen_action_btn.ProfileScreenActionBtn
+import com.example.feature.profile_screen.screen.ProfileScreenVM
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,6 +63,8 @@ fun NavGraph(
 
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
+
+    val profileScreenVM = hiltViewModel<ProfileScreenVM>()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -84,7 +89,12 @@ fun NavGraph(
                 navController = navController,
                 currentDestination = currentDestination
             )
-        }
+        },
+        floatingActionButton = {
+            ProfileScreenActionBtn(currentDestination = currentDestination) {
+
+            }
+        },
     ) { mainScaffoldPadding ->
         NavHost(
             navController = navController,
@@ -101,7 +111,10 @@ fun NavGraph(
                 navController = navController
             )
 
-            profileScreen(mainScaffoldPadding = mainScaffoldPadding,)
+            profileScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                profileScreenVM = profileScreenVM
+            )
 
             movieScreen(mainScaffoldPadding)
 

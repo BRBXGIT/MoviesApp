@@ -1,5 +1,6 @@
 package com.example.feature.profile_screen.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import com.example.core.ui.theme.mColors
 import com.example.feature.R
 import com.example.feature.profile_screen.sections.UserListsLCSection
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(
     mainScaffoldPadding: PaddingValues,
