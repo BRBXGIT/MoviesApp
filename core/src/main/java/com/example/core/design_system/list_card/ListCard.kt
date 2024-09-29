@@ -56,7 +56,7 @@ fun ListCard(
                 modifier = Modifier.fillMaxSize(),
                 filterQuality = FilterQuality.Low,
                 contentScale = ContentScale.Crop,
-                loading = { if(index < 8) AnimatedShimmer() }
+                loading = { if(index < 2) AnimatedShimmer() }
             )
 
             Box(
@@ -74,7 +74,7 @@ fun ListCard(
                     style = mTypography.bodySmall.copy(
                         fontWeight = FontWeight.Bold
                     ),
-                    modifier = Modifier.padding(4.dp)
+                    modifier = Modifier.padding(8.dp)
                 )
             }
 

@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.example.core.data.models.user_lists_response.Result
+import com.example.core.data.models.user_models.user_lists_response.Result
 import com.example.core.design_system.list_card.ListCard
 
 @Composable
@@ -18,7 +18,7 @@ fun UserListsLCSection(
     gravatarPath: String
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(1),
         contentPadding = PaddingValues(
             horizontal = 16.dp,
             vertical = 16.dp

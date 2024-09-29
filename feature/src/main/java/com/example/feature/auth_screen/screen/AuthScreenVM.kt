@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
 import com.example.core.data.local.TMDBUser
-import com.example.core.data.models.session_request.SessionRequest
+import com.example.core.data.models.session_models.session_request.SessionRequest
 import com.example.core.data.repos.AuthRepoImpl
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent

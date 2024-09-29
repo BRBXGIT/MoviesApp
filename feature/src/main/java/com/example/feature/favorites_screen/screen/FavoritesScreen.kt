@@ -19,12 +19,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.design_system.snackbars.SnackbarAction
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.core.ui.theme.mColors
+import com.example.feature.R
 import com.example.feature.favorites_screen.sections.FavoriteMoviesLCSection
-import com.example.feature.favorites_screen.sections.FavoritesErrorSection
 
 @Composable
 fun FavoritesScreen(
@@ -53,7 +54,10 @@ fun FavoritesScreen(
                 CircularProgressIndicator()
             }
         } else if(error) {
-            FavoritesErrorSection(errorMessage = errorMessage)
+            ErrorSection(
+                animation = R.raw.broken_heart_animation,
+                errorMessage = errorMessage
+            )
         } else {
             FavoriteMoviesLCSection(
                 movies = userFavorites,

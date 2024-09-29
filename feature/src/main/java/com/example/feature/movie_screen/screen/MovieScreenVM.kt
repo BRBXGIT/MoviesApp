@@ -2,17 +2,14 @@ package com.example.feature.movie_screen.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
-import com.example.core.data.models.movie_details_response.MovieDetailsResponse
-import com.example.core.data.models.movie_reviews_response.Result
-import com.example.core.data.models.movie_videos_response.MovieVideosResponse
+import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
+import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.repos.MovieScreenRepoImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

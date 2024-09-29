@@ -3,9 +3,9 @@ package com.example.core.data.repos
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.core.data.models.movie_details_response.MovieDetailsResponse
-import com.example.core.data.models.movie_reviews_response.Result
-import com.example.core.data.models.movie_videos_response.MovieVideosResponse
+import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
+import com.example.core.data.models.movie_models.movie_reviews_response.Result
+import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.remote.MovieReviewsPagingSource
 import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.domain.MovieScreenRepo

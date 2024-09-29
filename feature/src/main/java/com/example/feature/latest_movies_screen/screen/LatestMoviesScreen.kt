@@ -19,11 +19,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.core.ui.theme.mColors
+import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.design_system.snackbars.SnackbarAction
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent
-import com.example.feature.latest_movies_screen.sections.LatestMoviesErrorSection
+import com.example.core.ui.theme.mColors
+import com.example.feature.R
 import com.example.feature.latest_movies_screen.sections.LatestMoviesLCSection
 
 @Composable
@@ -53,7 +54,10 @@ fun LatestMoviesScreen(
                 CircularProgressIndicator()
             }
         } else if(error) {
-            LatestMoviesErrorSection(errorMessage = errorMessage)
+            ErrorSection(
+                animation = R.raw.error_503_animation,
+                errorMessage = errorMessage
+            )
         } else {
             LatestMoviesLCSection(
                 movies = latestMovies,

@@ -5,8 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
-import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
-import com.example.core.data.models.movies_previews_response.Result
+import com.example.core.data.models.movie_models.movies_genres_response.MoviesGenresResponse
+import com.example.core.data.models.movie_models.movies_previews_response.Result
 import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.data.remote.UserFavoritesPagingSource
 import com.example.core.domain.UserFavoritesScreenRepo

@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     //Coil impl
     implementation(libs.coil.compose)
+    //Lottie animations
+    implementation(libs.lottie)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

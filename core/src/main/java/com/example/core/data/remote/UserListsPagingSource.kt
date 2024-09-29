@@ -2,7 +2,7 @@ package com.example.core.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.core.data.models.user_lists_response.Result
+import com.example.core.data.models.user_models.user_lists_response.Result
 import com.example.core.utils.Utils
 import retrofit2.HttpException
 import java.io.IOException

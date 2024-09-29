@@ -27,11 +27,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
-import com.example.core.data.models.movie_details_response.ProductionCompany
+import com.example.core.data.models.movie_models.movie_details_response.ProductionCompany
 import com.example.core.design_system.animated_shimmer.AnimatedShimmer
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors

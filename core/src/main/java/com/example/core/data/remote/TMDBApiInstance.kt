@@ -1,15 +1,17 @@
 package com.example.core.data.remote
 
-import com.example.core.data.models.account_details_response.AccountDetailsResponse
-import com.example.core.data.models.movie_details_response.MovieDetailsResponse
-import com.example.core.data.models.movie_reviews_response.MovieReviewsResponse
-import com.example.core.data.models.movie_videos_response.MovieVideosResponse
-import com.example.core.data.models.movies_genres_response.MoviesGenresResponse
-import com.example.core.data.models.movies_previews_response.MoviesPreviewsResponse
-import com.example.core.data.models.request_token_response.RequestTokenResponse
-import com.example.core.data.models.session_request.SessionRequest
-import com.example.core.data.models.session_response.SessionResponse
-import com.example.core.data.models.user_lists_response.UserListsResponse
+import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
+import com.example.core.data.models.create_list_models.create_list_response.CreateListResponse
+import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
+import com.example.core.data.models.movie_models.movie_reviews_response.MovieReviewsResponse
+import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
+import com.example.core.data.models.movie_models.movies_genres_response.MoviesGenresResponse
+import com.example.core.data.models.movie_models.movies_previews_response.MoviesPreviewsResponse
+import com.example.core.data.models.session_models.request_token_response.RequestTokenResponse
+import com.example.core.data.models.session_models.session_request.SessionRequest
+import com.example.core.data.models.session_models.session_response.SessionResponse
+import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
+import com.example.core.data.models.user_models.user_lists_response.UserListsResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -79,4 +81,11 @@ interface TMDBApiInstance {
         @Query("page") page: Int,
         @Query("session_id") sessionId: String
     ): UserListsResponse
+
+    @POST("list")
+    suspend fun createList(
+        @Header("Authorization") accessToken: String,
+        @Query("session_id") sessionId: String,
+        @Body createListRequest: CreateListRequest
+    ): CreateListResponse
 }
