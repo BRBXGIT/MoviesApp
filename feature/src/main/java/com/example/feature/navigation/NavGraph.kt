@@ -30,6 +30,7 @@ import com.example.feature.common.bottom_bar.CommonBottomBar
 import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
+import com.example.feature.list_screen.navigation.listScreen
 import com.example.feature.movie_screen.navigation.movieScreen
 import com.example.feature.profile_screen.create_list_bottom_sheet.CreateListBottomSheet
 import com.example.feature.profile_screen.navigation.profileScreen
@@ -121,13 +122,21 @@ fun NavGraph(
                 navController = navController
             )
 
-            profileScreen(mainScaffoldPadding = mainScaffoldPadding)
+            profileScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                navController = navController
+            )
 
             movieScreen(mainScaffoldPadding)
 
             authScreen(
                 mainScaffoldPadding = mainScaffoldPadding,
                 prefs = prefs,
+                navController = navController
+            )
+
+            listScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
                 navController = navController
             )
         }

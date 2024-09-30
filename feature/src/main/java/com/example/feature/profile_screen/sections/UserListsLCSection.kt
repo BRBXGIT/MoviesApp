@@ -6,16 +6,19 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import com.example.core.data.models.user_models.user_lists_response.Result
 import com.example.core.design_system.list_card.ListCard
+import com.example.feature.list_screen.navigation.ListScreenRoute
 
 @Composable
 fun UserListsLCSection(
     userLists: LazyPagingItems<Result>,
     userName: String,
     avatarPath: String,
-    gravatarPath: String
+    gravatarPath: String,
+    navController: NavHostController
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(1),
@@ -43,10 +46,11 @@ fun UserListsLCSection(
                     posterPath = "https://image.tmdb.org/t/p/w500/${list.posterPath}",
                     title = list.name,
                     description = list.description,
-                    index = index
-                ) {
-
-                }
+                    index = index,
+                    onListClick = {
+                        navController.navigate(ListScreenRoute(list.id))
+                    }
+                )
             }
         }
     }

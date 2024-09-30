@@ -3,6 +3,7 @@ package com.example.feature.profile_screen.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.feature.profile_screen.screen.ProfileScreen
 import com.example.feature.profile_screen.screen.ProfileScreenVM
@@ -13,11 +14,13 @@ object ProfileScreenRoute
 
 fun NavGraphBuilder.profileScreen(
     mainScaffoldPadding: PaddingValues,
+    navController: NavHostController
 ) = composable<ProfileScreenRoute> {
     val profileScreenVM = hiltViewModel<ProfileScreenVM>()
 
     ProfileScreen(
         mainScaffoldPadding = mainScaffoldPadding,
         viewModel = profileScreenVM,
+        navController = navController
     )
 }

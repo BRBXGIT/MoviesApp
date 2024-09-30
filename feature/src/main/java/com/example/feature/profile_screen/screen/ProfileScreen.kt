@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.design_system.error_section.ErrorSection
@@ -38,7 +39,8 @@ import kotlinx.coroutines.launch
 fun ProfileScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: ProfileScreenVM,
-    scope: CoroutineScope = rememberCoroutineScope()
+    scope: CoroutineScope = rememberCoroutineScope(),
+    navController: NavHostController
 ) {
     val user = viewModel.userDetails.collectAsStateWithLifecycle().value
     val userLists = viewModel.userLists.collectAsLazyPagingItems()
@@ -90,7 +92,8 @@ fun ProfileScreen(
                     userName = user.username,
                     userLists = userLists,
                     avatarPath = "https://image.tmdb.org/t/p/w500/${user.avatar.tmdb.avatarPath}",
-                    gravatarPath = "https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}?s=500&d=identicon"
+                    gravatarPath = "https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}?s=500&d=identicon",
+                    navController = navController
                 )
             }
         }
