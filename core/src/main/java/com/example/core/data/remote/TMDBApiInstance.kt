@@ -2,6 +2,7 @@ package com.example.core.data.remote
 
 import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
 import com.example.core.data.models.create_list_models.create_list_response.CreateListResponse
+import com.example.core.data.models.list_details_models.ListDetailsResponse
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_reviews_response.MovieReviewsResponse
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
@@ -88,4 +89,11 @@ interface TMDBApiInstance {
         @Query("session_id") sessionId: String,
         @Body createListRequest: CreateListRequest
     ): CreateListResponse
+
+    @GET("list/{listId}")
+    suspend fun getListDetails(
+        @Header("Authorization") accessToken: String,
+        @Path("listId") listId: Int,
+        @Query("page") page: Int
+    ): ListDetailsResponse
 }
