@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.feature.common.top_bar.TopBarMovieScreenSharedVM
 import com.example.feature.movie_screen.screen.MovieScreen
 import com.example.feature.movie_screen.screen.MovieScreenVM
 import kotlinx.serialization.Serializable
@@ -15,7 +16,8 @@ data class MovieScreenRoute(
 )
 
 fun NavGraphBuilder.movieScreen(
-    mainScaffoldPadding: PaddingValues
+    mainScaffoldPadding: PaddingValues,
+    topBarMovieScreenSharedVM: TopBarMovieScreenSharedVM
 ) = composable<MovieScreenRoute> {
     val movieId = it.toRoute<MovieScreenRoute>().movieId
     val movieScreenVM = hiltViewModel<MovieScreenVM>()
@@ -23,6 +25,7 @@ fun NavGraphBuilder.movieScreen(
     MovieScreen(
         movieId = movieId,
         mainScaffoldPadding = mainScaffoldPadding,
-        viewModel = movieScreenVM
+        viewModel = movieScreenVM,
+        sharedViewModel = topBarMovieScreenSharedVM
     )
 }

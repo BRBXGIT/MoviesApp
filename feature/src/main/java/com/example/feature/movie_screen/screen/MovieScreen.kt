@@ -21,6 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
+import com.example.feature.common.top_bar.TopBarMovieScreenSharedVM
 import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
 import com.example.feature.movie_screen.sections.MovieReview
@@ -32,7 +33,9 @@ fun MovieScreen(
     movieId: Int,
     mainScaffoldPadding: PaddingValues,
     viewModel: MovieScreenVM,
+    sharedViewModel: TopBarMovieScreenSharedVM
 ) {
+    sharedViewModel.setMovieId(movieId)
     viewModel.setMovieId(movieId)
     val movieReviews = viewModel.movieReviews.collectAsLazyPagingItems()
 

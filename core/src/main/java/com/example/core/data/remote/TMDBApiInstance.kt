@@ -1,5 +1,7 @@
 package com.example.core.data.remote
 
+import com.example.core.data.models.add_favorite_models.add_favorite_request.AddFavoriteRequest
+import com.example.core.data.models.add_favorite_models.add_favorite_response.AddFavoriteResponse
 import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
 import com.example.core.data.models.create_list_models.create_list_response.CreateListResponse
 import com.example.core.data.models.list_details_models.ListDetailsResponse
@@ -96,4 +98,12 @@ interface TMDBApiInstance {
         @Path("listId") listId: Int,
         @Query("page") page: Int
     ): ListDetailsResponse
+
+    @POST("account/{accountId}/favorite")
+    suspend fun addMovieToFavorite(
+        @Header("Authorization") accessToken: String,
+        @Path("accountId") accountId: Int,
+        @Query("session_id") sessionId: String,
+        @Body addFavoriteRequest: AddFavoriteRequest
+    ): AddFavoriteResponse
 }

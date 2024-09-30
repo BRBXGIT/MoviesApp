@@ -18,15 +18,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.core.design_system.snackbars.ObserveAsEvents
 import com.example.core.design_system.snackbars.SnackbarController
-import com.example.core.design_system.top_bar.CommonTopAppBar
 import com.example.feature.auth_screen.navigation.AuthScreenRoute
 import com.example.feature.auth_screen.navigation.authScreen
 import com.example.feature.common.bottom_bar.CommonBottomBar
+import com.example.feature.common.top_bar.CommonTopAppBar
+import com.example.feature.common.top_bar.TopBarMovieScreenSharedVM
 import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
@@ -75,6 +77,7 @@ fun NavGraph(
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
 
+    val topBarMovieScreenSharedVM = hiltViewModel<TopBarMovieScreenSharedVM>()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -90,7 +93,8 @@ fun NavGraph(
                         else -> ""
                     },
                     scrollBehavior = mainTopAppBarScrollBehavior,
-                    navController = navController
+                    navController = navController,
+                    sharedViewModel = topBarMovieScreenSharedVM
                 )
             }
         },
@@ -127,7 +131,10 @@ fun NavGraph(
                 navController = navController
             )
 
-            movieScreen(mainScaffoldPadding)
+            movieScreen(
+                mainScaffoldPadding = mainScaffoldPadding,
+                topBarMovieScreenSharedVM = topBarMovieScreenSharedVM
+            )
 
             authScreen(
                 mainScaffoldPadding = mainScaffoldPadding,

@@ -1,6 +1,9 @@
 package com.example.core.domain
 
 import androidx.paging.PagingData
+import com.example.core.data.local.TMDBUser
+import com.example.core.data.models.add_favorite_models.add_favorite_request.AddFavoriteRequest
+import com.example.core.data.models.add_favorite_models.add_favorite_response.AddFavoriteResponse
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_reviews_response.Result
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
@@ -13,4 +16,12 @@ interface MovieScreenRepo {
     fun getMovieReviews(movieId: Int): Flow<PagingData<Result>>
 
     suspend fun getMovieVideos(movieId: Int): MovieVideosResponse
+
+    suspend fun addMovieToFavorite(
+        accountId: Int,
+        sessionId: String,
+        addFavoriteRequest: AddFavoriteRequest
+    ): AddFavoriteResponse
+
+    fun getUserData(): Flow<List<TMDBUser>>
 }

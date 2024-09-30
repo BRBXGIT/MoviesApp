@@ -1,4 +1,4 @@
-package com.example.core.design_system.top_bar
+package com.example.feature.common.top_bar
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -8,6 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
@@ -19,7 +23,8 @@ import com.example.core.ui.theme.mTypography
 fun CommonTopAppBar(
     title: String,
     scrollBehavior: TopAppBarScrollBehavior,
-    navController: NavHostController
+    navController: NavHostController,
+    sharedViewModel: TopBarMovieScreenSharedVM
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -29,16 +34,29 @@ fun CommonTopAppBar(
             )
         },
         actions = {
+            var dropDownMenuOpen by rememberSaveable { mutableStateOf(false) }
             IconButton(
-                onClick = { /*TODO*/ }
+                onClick = {
+                    if(title == "") {
+                        dropDownMenuOpen = true
+                    }
+                }
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if(title == "") MoviesAppIcons.Heart else MoviesAppIcons.Settings
+                        id = if(title == "") MoviesAppIcons.DotsFilled else MoviesAppIcons.Settings
                     ),
                     contentDescription = null
                 )
             }
+
+            TopBarDropDownMenu(
+                onDismissRequest = { dropDownMenuOpen = false },
+                expanded = dropDownMenuOpen,
+                onFavoriteClick = {
+                    sharedViewModel.addMovieToFavorite()
+                }
+            )
         },
         navigationIcon = {
             IconButton(

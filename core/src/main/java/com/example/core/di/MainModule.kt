@@ -57,8 +57,8 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideMovieScreenRepo(apiInstance: TMDBApiInstance): MovieScreenRepo {
-        return MovieScreenRepoImpl(apiInstance)
+    fun provideMovieScreenRepo(apiInstance: TMDBApiInstance, tmdbUserDao: TMDBUserDao): MovieScreenRepo {
+        return MovieScreenRepoImpl(apiInstance, tmdbUserDao)
     }
 
     @Provides

@@ -3,6 +3,10 @@ package com.example.core.data.repos
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.core.data.local.TMDBUser
+import com.example.core.data.local.TMDBUserDao
+import com.example.core.data.models.add_favorite_models.add_favorite_request.AddFavoriteRequest
+import com.example.core.data.models.add_favorite_models.add_favorite_response.AddFavoriteResponse
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_reviews_response.Result
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
@@ -14,7 +18,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MovieScreenRepoImpl @Inject constructor(
-    private val apiInstance: TMDBApiInstance
+    private val apiInstance: TMDBApiInstance,
+    private val tmdbUserDao: TMDBUserDao
 ): MovieScreenRepo {
 
     private val accessToken = Utils.ACCESS_TOKEN
@@ -32,5 +37,17 @@ class MovieScreenRepoImpl @Inject constructor(
 
     override suspend fun getMovieVideos(movieId: Int): MovieVideosResponse {
         return apiInstance.getMovieVideos(accessToken, movieId)
+    }
+
+    override suspend fun addMovieToFavorite(
+        accountId: Int,
+        sessionId: String,
+        addFavoriteRequest: AddFavoriteRequest
+    ): AddFavoriteResponse {
+        return apiInstance.addMovieToFavorite(accessToken, accountId, sessionId, addFavoriteRequest)
+    }
+
+    override fun getUserData(): Flow<List<TMDBUser>> {
+        return tmdbUserDao.getUser()
     }
 }
