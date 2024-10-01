@@ -9,7 +9,8 @@ import androidx.compose.runtime.Composable
 fun TopBarDropDownMenu(
     onDismissRequest: () -> Unit,
     expanded: Boolean,
-    onFavoriteClick: () -> Unit
+    onAddFavoriteClick: () -> Unit,
+    onRemoveFavoriteClick: () -> Unit
 ) {
     DropdownMenu(
         expanded = expanded,
@@ -19,7 +20,14 @@ fun TopBarDropDownMenu(
             text = {
                 Text(text = "Add to favorite")
             },
-            onClick = { onFavoriteClick() }
+            onClick = { onAddFavoriteClick() }
+        )
+
+        DropdownMenuItem(
+            text = {
+                Text(text = "Remove from favorite")
+            },
+            onClick = { onRemoveFavoriteClick() }
         )
     }
 }

@@ -5,8 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
-import com.example.core.data.models.add_favorite_models.add_favorite_request.AddFavoriteRequest
-import com.example.core.data.models.add_favorite_models.add_favorite_response.AddFavoriteResponse
+import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
+import com.example.core.data.models.add_favorite_models.add_favorite_response.AddRemoveFavoriteResponse
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_reviews_response.Result
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
@@ -39,12 +39,12 @@ class MovieScreenRepoImpl @Inject constructor(
         return apiInstance.getMovieVideos(accessToken, movieId)
     }
 
-    override suspend fun addMovieToFavorite(
+    override suspend fun addRemoveMovieToFavorite(
         accountId: Int,
         sessionId: String,
-        addFavoriteRequest: AddFavoriteRequest
-    ): AddFavoriteResponse {
-        return apiInstance.addMovieToFavorite(accessToken, accountId, sessionId, addFavoriteRequest)
+        addRemoveFavoriteRequest: AddRemoveFavoriteRequest
+    ): AddRemoveFavoriteResponse {
+        return apiInstance.addRemoveMovieToFavorite(accessToken, accountId, sessionId, addRemoveFavoriteRequest)
     }
 
     override fun getUserData(): Flow<List<TMDBUser>> {

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
-import com.example.core.data.models.add_favorite_models.add_favorite_request.AddFavoriteRequest
+import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
 import com.example.core.data.repos.MovieScreenRepoImpl
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent
@@ -24,16 +24,16 @@ class TopBarMovieScreenSharedVM @Inject constructor(
         movieId = id
     }
 
-    fun addMovieToFavorite() {
+    fun addRemoveMovieToFavorite(isFavorite: Boolean) {
         viewModelScope.launch(dispatcherIo) {
             try {
                 repository.getUserData().collect { userData ->
-                    val response = repository.addMovieToFavorite(
+                    val response = repository.addRemoveMovieToFavorite(
                         userData[0].userId,
                         userData[0].sessionId,
-                        AddFavoriteRequest(
+                        AddRemoveFavoriteRequest(
                             mediaId = movieId,
-                            favorite = true
+                            favorite = isFavorite
                         )
                     )
                     if(response.success) {

@@ -65,7 +65,7 @@ fun MovieScreen(
             }
 
             if(movieVideos != null) {
-                val movieTrailers = movieVideos.results.filter { it.name == "Trailer" }
+                val movieTrailers = movieVideos.results.filter { it.type == "Trailer" }
                 if(movieTrailers.isNotEmpty()) {
                     val movieTrailerId = movieTrailers[0].key
 
