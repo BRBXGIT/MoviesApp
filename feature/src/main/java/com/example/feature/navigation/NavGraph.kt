@@ -90,6 +90,7 @@ fun NavGraph(
                         "LatestMoviesScreenRoute" -> "Latest movies"
                         "FavoritesScreenRoute" -> "Favorites"
                         "ProfileScreenRoute" -> "Profile"
+                        "ListScreenRoute/{listId}" -> "List"
                         else -> ""
                     },
                     scrollBehavior = mainTopAppBarScrollBehavior,

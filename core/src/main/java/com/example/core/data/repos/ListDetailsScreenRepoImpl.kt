@@ -3,6 +3,10 @@ package com.example.core.data.repos
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.core.data.local.TMDBUser
+import com.example.core.data.local.TMDBUserDao
+import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListRequest
+import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListResponse
 import com.example.core.data.models.list_details_models.Item
 import com.example.core.data.models.movie_models.movies_genres_response.MoviesGenresResponse
 import com.example.core.data.remote.ListDetailsPagingSource
@@ -13,7 +17,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ListDetailsScreenRepoImpl @Inject constructor(
-    private val apiInstance: TMDBApiInstance
+    private val apiInstance: TMDBApiInstance,
+    private val tmdbUserDao: TMDBUserDao
 ): ListDetailsScreenRepo {
 
     //List details
@@ -28,5 +33,17 @@ class ListDetailsScreenRepoImpl @Inject constructor(
     private val accessToken = Utils.ACCESS_TOKEN
     override suspend fun getAllMoviesGenres(): MoviesGenresResponse {
         return apiInstance.getAllMoviesGenres(accessToken)
+    }
+
+    override suspend fun removeMovieToList(
+        listId: Int,
+        sessionId: String,
+        addRemoveMovieToListRequest: AddRemoveMovieToListRequest
+    ): AddRemoveMovieToListResponse {
+        return apiInstance.removeMovieFromList(accessToken, listId, sessionId, addRemoveMovieToListRequest)
+    }
+
+    override fun getUserData(): Flow<List<TMDBUser>> {
+        return tmdbUserDao.getUser()
     }
 }

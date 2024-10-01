@@ -7,8 +7,8 @@ import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
 import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
 import com.example.core.data.models.add_favorite_models.add_favorite_response.AddRemoveFavoriteResponse
-import com.example.core.data.models.add_movie_to_list_models.AddMovieToListRequest
-import com.example.core.data.models.add_movie_to_list_models.AddMovieToListResponse
+import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListRequest
+import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListResponse
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_reviews_response.Result
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
@@ -57,9 +57,9 @@ class MovieScreenRepoImpl @Inject constructor(
     override suspend fun addMovieToList(
         listId: Int,
         sessionId: String,
-        addMovieToListRequest: AddMovieToListRequest
-    ): AddMovieToListResponse {
-        return apiInstance.addMovieToList(accessToken, listId, sessionId, addMovieToListRequest)
+        addRemoveMovieToListRequest: AddRemoveMovieToListRequest
+    ): AddRemoveMovieToListResponse {
+        return apiInstance.addMovieToList(accessToken, listId, sessionId, addRemoveMovieToListRequest)
     }
 
     override fun getUserLists(accountId: Int, sessionId: String): Flow<PagingData<com.example.core.data.models.user_models.user_lists_response.Result>> {

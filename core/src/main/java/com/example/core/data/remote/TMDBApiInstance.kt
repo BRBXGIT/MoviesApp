@@ -2,8 +2,8 @@ package com.example.core.data.remote
 
 import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
 import com.example.core.data.models.add_favorite_models.add_favorite_response.AddRemoveFavoriteResponse
-import com.example.core.data.models.add_movie_to_list_models.AddMovieToListRequest
-import com.example.core.data.models.add_movie_to_list_models.AddMovieToListResponse
+import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListRequest
+import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListResponse
 import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
 import com.example.core.data.models.create_list_models.create_list_response.CreateListResponse
 import com.example.core.data.models.list_details_models.ListDetailsResponse
@@ -114,6 +114,14 @@ interface TMDBApiInstance {
         @Header("Authorization") accessToken: String,
         @Path("listId") listId: Int,
         @Query("session_id") sessionId: String,
-        @Body addMovieToListRequest: AddMovieToListRequest
-    ): AddMovieToListResponse
+        @Body addRemoveMovieToListRequest: AddRemoveMovieToListRequest
+    ): AddRemoveMovieToListResponse
+
+    @POST("list/{listId}/remove_item")
+    suspend fun removeMovieFromList(
+        @Header("Authorization") accessToken: String,
+        @Path("listId") listId: Int,
+        @Query("session_id") sessionId: String,
+        @Body addRemoveMovieToListRequest: AddRemoveMovieToListRequest
+    ): AddRemoveMovieToListResponse
 }
