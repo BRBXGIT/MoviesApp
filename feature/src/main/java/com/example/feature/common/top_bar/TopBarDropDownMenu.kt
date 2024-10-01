@@ -10,7 +10,8 @@ fun TopBarDropDownMenu(
     onDismissRequest: () -> Unit,
     expanded: Boolean,
     onAddFavoriteClick: () -> Unit,
-    onRemoveFavoriteClick: () -> Unit
+    onRemoveFavoriteClick: () -> Unit,
+    onAddToListClick: () -> Unit
 ) {
     DropdownMenu(
         expanded = expanded,
@@ -28,6 +29,13 @@ fun TopBarDropDownMenu(
                 Text(text = "Remove from favorite")
             },
             onClick = { onRemoveFavoriteClick() }
+        )
+
+        DropdownMenuItem(
+            text = {
+                Text(text = "Add to list")
+            },
+            onClick = { onAddToListClick() }
         )
     }
 }

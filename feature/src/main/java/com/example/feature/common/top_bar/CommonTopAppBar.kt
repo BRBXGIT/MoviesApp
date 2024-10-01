@@ -26,6 +26,14 @@ fun CommonTopAppBar(
     navController: NavHostController,
     sharedViewModel: TopBarMovieScreenSharedVM
 ) {
+    var addMovieToListBSOpened by rememberSaveable { mutableStateOf(false) }
+    if(addMovieToListBSOpened) {
+        AddMovieToListBS(
+            viewModel = sharedViewModel,
+            onDismissRequest = { addMovieToListBSOpened = false }
+        )
+    }
+
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -59,6 +67,10 @@ fun CommonTopAppBar(
                 },
                 onRemoveFavoriteClick = {
                     sharedViewModel.addRemoveMovieToFavorite(false)
+                    dropDownMenuOpen = false
+                },
+                onAddToListClick = {
+                    addMovieToListBSOpened = true
                     dropDownMenuOpen = false
                 }
             )
