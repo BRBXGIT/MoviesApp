@@ -17,7 +17,8 @@ import com.example.feature.movie_screen.navigation.MovieScreenRoute
 fun ListMoviesLCSection(
     movies: LazyPagingItems<Item>,
     genres: List<Genre>,
-    navController: NavHostController
+    navController: NavHostController,
+    onDeleteButtonClick: (Int) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -28,7 +29,7 @@ fun ListMoviesLCSection(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(movies.itemCount) { index ->
+        items(movies.itemCount, key = { it }) { index ->
             val movie = movies[index]
 
             movie?.let {
@@ -42,10 +43,14 @@ fun ListMoviesLCSection(
                     title = movie.title,
                     genres = movieGenres.joinToString(separator = ", ") { it.name },
                     index = index,
+                    movieInList = true,
                     onMovieClick = {
                         navController.navigate(
                             MovieScreenRoute(movie.id)
                         )
+                    },
+                    onDeleteButtonClick = {
+                        onDeleteButtonClick(movie.id)
                     }
                 )
             }

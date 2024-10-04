@@ -18,7 +18,7 @@ converterGson = "2.9.0"
 hiltAndroid = "2.51.1"
 hiltNavigationCompose = "1.2.0"
 
-composeNavigation = "2.8.0"
+composeNavigation = "2.8.2"
 serialization = "1.6.3"
 
 roomKtx = "2.6.1"
@@ -29,7 +29,7 @@ kspPlugin = "1.9.0-1.0.13"
 
 pagingCompose = "3.3.2"
 
-uiTextGoogleFonts = "1.7.1"
+uiTextGoogleFonts = "1.7.3"
 
 lottie = "6.5.2"
 
