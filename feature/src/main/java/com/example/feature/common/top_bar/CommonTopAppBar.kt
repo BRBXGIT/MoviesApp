@@ -62,11 +62,7 @@ fun CommonTopAppBar(
                 onDismissRequest = { dropDownMenuOpen = false },
                 expanded = dropDownMenuOpen,
                 onAddFavoriteClick = {
-                    sharedViewModel.addRemoveMovieToFavorite(true)
-                    dropDownMenuOpen = false
-                },
-                onRemoveFavoriteClick = {
-                    sharedViewModel.addRemoveMovieToFavorite(false)
+                    sharedViewModel.addMovieToFavorite()
                     dropDownMenuOpen = false
                 },
                 onAddToListClick = {

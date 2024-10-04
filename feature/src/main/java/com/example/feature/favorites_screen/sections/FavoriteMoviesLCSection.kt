@@ -17,7 +17,8 @@ import com.example.feature.movie_screen.navigation.MovieScreenRoute
 fun FavoriteMoviesLCSection(
     movies: LazyPagingItems<Result>,
     genres: List<Genre>,
-    navController: NavHostController
+    navController: NavHostController,
+    onMovieDelete: (Int) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -48,6 +49,10 @@ fun FavoriteMoviesLCSection(
                                 movieId = movie.id
                             )
                         )
+                    },
+                    movieInList = true,
+                    onDeleteButtonClick = {
+                        onMovieDelete(movie.id)
                     }
                 )
             }

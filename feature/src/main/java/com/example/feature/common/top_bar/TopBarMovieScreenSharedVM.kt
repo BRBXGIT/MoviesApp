@@ -29,7 +29,7 @@ class TopBarMovieScreenSharedVM @Inject constructor(
         movieId = id
     }
 
-    fun addRemoveMovieToFavorite(isFavorite: Boolean) {
+    fun addMovieToFavorite() {
         viewModelScope.launch(dispatcherIo) {
             try {
                 repository.getUserData().collect { userData ->
@@ -38,7 +38,7 @@ class TopBarMovieScreenSharedVM @Inject constructor(
                         userData[0].sessionId,
                         AddRemoveFavoriteRequest(
                             mediaId = movieId,
-                            favorite = isFavorite
+                            favorite = true
                         )
                     )
                     if(response.success) {

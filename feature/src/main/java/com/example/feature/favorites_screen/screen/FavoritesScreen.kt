@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -26,12 +27,16 @@ import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.core.ui.theme.mColors
 import com.example.feature.R
 import com.example.feature.favorites_screen.sections.FavoriteMoviesLCSection
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun FavoritesScreen(
     mainScaffoldPadding: PaddingValues,
     viewModel: FavoritesScreenVM,
-    navController: NavHostController
+    navController: NavHostController,
+    scope: CoroutineScope = rememberCoroutineScope()
 ) {
     val userFavorites = viewModel.userFavorites.collectAsLazyPagingItems()
     val moviesGenres by viewModel.allMoviesGenres.collectAsStateWithLifecycle()
@@ -62,7 +67,14 @@ fun FavoritesScreen(
             FavoriteMoviesLCSection(
                 movies = userFavorites,
                 genres = moviesGenres,
-                navController = navController
+                navController = navController,
+                onMovieDelete = {
+                    scope.launch {
+                        viewModel.removeMovieFromFavorite(it)
+                        delay(1000)
+                        userFavorites.refresh()
+                    }
+                }
             )
         }
 

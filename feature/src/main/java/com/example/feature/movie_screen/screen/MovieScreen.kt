@@ -19,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
+import com.example.feature.R
 import com.example.feature.common.top_bar.TopBarMovieScreenSharedVM
 import com.example.feature.movie_screen.sections.DescriptionSection
 import com.example.feature.movie_screen.sections.HeaderSection
@@ -41,6 +43,9 @@ fun MovieScreen(
 
     val movieDetails = viewModel.movieDetails.collectAsStateWithLifecycle().value
     val movieVideos = viewModel.movieVideos.collectAsStateWithLifecycle().value
+    val error = viewModel.error.collectAsStateWithLifecycle().value
+    val errorMessage = viewModel.errorMessage.collectAsStateWithLifecycle().value
+
     LaunchedEffect(key1 = (movieDetails == null)) {
         viewModel.setMovieDetails(movieId)
     }
@@ -109,6 +114,11 @@ fun MovieScreen(
                 Spacer(modifier = Modifier.height(0.dp))
             }
         }
+    } else if(error) {
+        ErrorSection(
+            animation = R.raw.movie_error_animation,
+            errorMessage = errorMessage
+        )
     } else {
         Box(
             modifier = Modifier

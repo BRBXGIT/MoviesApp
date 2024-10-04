@@ -55,7 +55,7 @@ fun LatestMoviesScreen(
             }
         } else if(error) {
             ErrorSection(
-                animation = R.raw.error_503_animation,
+                animation = R.raw.latest_movies_error_animation,
                 errorMessage = errorMessage
             )
         } else {

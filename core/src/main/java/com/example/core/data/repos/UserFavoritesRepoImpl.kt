@@ -5,6 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
+import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
+import com.example.core.data.models.add_favorite_models.add_favorite_response.AddRemoveFavoriteResponse
 import com.example.core.data.models.movie_models.movies_genres_response.MoviesGenresResponse
 import com.example.core.data.models.movie_models.movies_previews_response.Result
 import com.example.core.data.remote.TMDBApiInstance
@@ -34,5 +36,13 @@ class UserFavoritesRepoImpl @Inject constructor(
 
     override suspend fun getAllMoviesGenres(): MoviesGenresResponse {
         return apiInstance.getAllMoviesGenres(accessToken)
+    }
+
+    override suspend fun addRemoveMovieToFavorite(
+        accountId: Int,
+        sessionId: String,
+        addRemoveFavoriteRequest: AddRemoveFavoriteRequest
+    ): AddRemoveFavoriteResponse {
+        return apiInstance.addRemoveMovieToFavorite(accessToken, accountId, sessionId, addRemoveFavoriteRequest)
     }
 }

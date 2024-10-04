@@ -8,6 +8,9 @@ import com.example.core.common.MoviesAppDispatchers
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
 import com.example.core.data.repos.MovieScreenRepoImpl
+import com.example.core.design_system.snackbars.SnackbarAction
+import com.example.core.design_system.snackbars.SnackbarController
+import com.example.core.design_system.snackbars.SnackbarEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,12 +32,39 @@ class MovieScreenVM @Inject constructor(
         null
     )
 
+    private val _error = MutableStateFlow(false)
+    val error = _error.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        false
+    )
+    private val _errorMessage = MutableStateFlow("")
+    val errorMessage = _errorMessage.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        ""
+    )
+
     fun setMovieDetails(movieId: Int) {
         viewModelScope.launch(dispatcherIo) {
             try {
                 _movieDetailsResponse.value = repository.getMovieDetails(movieId)
             } catch(e: Exception) {
-                println(e.message)
+                _error.value = true
+                _errorMessage.value = e.message.toString()
+
+                SnackbarController.sendEvent(
+                    SnackbarEvent(
+                        message = "Something went wrong :(",
+                        action = SnackbarAction(
+                            name = "Refresh",
+                            action = {
+                                setMovieDetails(movieId)
+                                setMovieVideos(movieId)
+                            }
+                        )
+                    )
+                )
             }
         }
     }
