@@ -58,10 +58,10 @@ fun FavoritesScreen(
             ) {
                 CircularProgressIndicator()
             }
-        } else if(error) {
+        } else if(error || userFavorites.itemCount == 0) {
             ErrorSection(
                 animation = R.raw.broken_heart_animation,
-                errorMessage = errorMessage
+                errorMessage = if(error) errorMessage else "Nothing in favorites"
             )
         } else {
             FavoriteMoviesLCSection(

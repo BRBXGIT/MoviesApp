@@ -26,9 +26,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mShapes
 import com.example.core.ui.theme.mTypography
+import com.example.feature.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,6 +106,16 @@ fun AddMovieToListBS(
 
                             HorizontalDivider(thickness = 1.dp)
                         }
+                    }
+                }
+
+                if(userLists.itemCount == 0) {
+                    item {
+                        ErrorSection(
+                            animation = R.raw.dont_have_lists_animation,
+                            errorMessage = "You don't have lists yet \n" +
+                                    "you can create it in profile :)"
+                        )
                     }
                 }
 

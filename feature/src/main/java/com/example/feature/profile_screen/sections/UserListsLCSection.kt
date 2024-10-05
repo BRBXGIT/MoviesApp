@@ -9,7 +9,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import com.example.core.data.models.user_models.user_lists_response.Result
+import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.design_system.list_card.ListCard
+import com.example.feature.R
 import com.example.feature.list_screen.navigation.ListScreenRoute
 
 @Composable
@@ -50,6 +52,15 @@ fun UserListsLCSection(
                     onListClick = {
                         navController.navigate(ListScreenRoute(list.id))
                     }
+                )
+            }
+        }
+
+        if(userLists.itemCount == 0) {
+            item {
+                ErrorSection(
+                    animation = R.raw.dont_have_lists_animation,
+                    errorMessage = "You don't have list yet"
                 )
             }
         }
