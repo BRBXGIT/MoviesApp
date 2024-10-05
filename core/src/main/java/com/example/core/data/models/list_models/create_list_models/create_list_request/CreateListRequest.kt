@@ -1,4 +1,4 @@
-package com.example.core.data.models.create_list_models.create_list_request
+package com.example.core.data.models.list_models.create_list_models.create_list_request
 
 data class CreateListRequest(
     val name: String,

@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
+import com.example.core.data.models.list_models.create_list_models.create_list_request.CreateListRequest
 import com.example.core.ui.theme.mShapes
 import com.example.core.ui.theme.mTypography
 import com.example.feature.profile_screen.screen.ProfileScreenVM

@@ -4,9 +4,10 @@ import com.example.core.data.models.add_favorite_models.add_favorite_request.Add
 import com.example.core.data.models.add_favorite_models.add_favorite_response.AddRemoveFavoriteResponse
 import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListRequest
 import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListResponse
-import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
-import com.example.core.data.models.create_list_models.create_list_response.CreateListResponse
-import com.example.core.data.models.list_details_models.ListDetailsResponse
+import com.example.core.data.models.list_models.create_list_models.create_list_request.CreateListRequest
+import com.example.core.data.models.list_models.create_list_models.create_list_response.CreateListResponse
+import com.example.core.data.models.list_models.delete_list_models.DeleteListResponse
+import com.example.core.data.models.list_models.list_details_models.ListDetailsResponse
 import com.example.core.data.models.movie_models.movie_details_response.MovieDetailsResponse
 import com.example.core.data.models.movie_models.movie_reviews_response.MovieReviewsResponse
 import com.example.core.data.models.movie_models.movie_videos_response.MovieVideosResponse
@@ -18,6 +19,7 @@ import com.example.core.data.models.session_models.session_response.SessionRespo
 import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
 import com.example.core.data.models.user_models.user_lists_response.UserListsResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -124,4 +126,10 @@ interface TMDBApiInstance {
         @Query("session_id") sessionId: String,
         @Body addRemoveMovieToListRequest: AddRemoveMovieToListRequest
     ): AddRemoveMovieToListResponse
+
+    @DELETE("list/{listId}")
+    suspend fun deleteList(
+        @Path("listId") listId: Int,
+        @Query("session_id") sessionId: String
+    ): DeleteListResponse
 }

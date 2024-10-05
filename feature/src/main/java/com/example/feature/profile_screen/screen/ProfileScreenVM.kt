@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
-import com.example.core.data.models.create_list_models.create_list_request.CreateListRequest
+import com.example.core.data.models.list_models.create_list_models.create_list_request.CreateListRequest
 import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
 import com.example.core.data.repos.ProfileScreenRepoImpl
 import com.example.core.design_system.snackbars.SnackbarAction
@@ -104,6 +104,36 @@ class ProfileScreenVM @Inject constructor(
                 SnackbarController.sendEvent(
                     SnackbarEvent(
                         message = "Internet exception, try with vpn :)",
+                    )
+                )
+            }
+        }
+    }
+
+    fun deleteList(listId: Int) {
+        viewModelScope.launch(dispatcherIo) {
+            try {
+                repository.getUser().collect { userData ->
+                    val response = repository.deleteList(listId, userData[0].sessionId)
+
+                    if(response.success) {
+                        SnackbarController.sendEvent(
+                            SnackbarEvent(
+                                message = "Success"
+                            )
+                        )
+                    } else {
+                        SnackbarController.sendEvent(
+                            SnackbarEvent(
+                                message = "Something went wrong :("
+                            )
+                        )
+                    }
+                }
+            } catch(e: Exception) {
+                SnackbarController.sendEvent(
+                    SnackbarEvent(
+                        message = "Something wrong with internet, try with vpn :)"
                     )
                 )
             }

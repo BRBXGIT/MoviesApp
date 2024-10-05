@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
@@ -13,6 +14,10 @@ import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.design_system.list_card.ListCard
 import com.example.feature.R
 import com.example.feature.list_screen.navigation.ListScreenRoute
+import com.example.feature.profile_screen.screen.ProfileScreenVM
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun UserListsLCSection(
@@ -20,7 +25,9 @@ fun UserListsLCSection(
     userName: String,
     avatarPath: String,
     gravatarPath: String,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: ProfileScreenVM,
+    scope: CoroutineScope = rememberCoroutineScope()
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(1),
@@ -51,6 +58,13 @@ fun UserListsLCSection(
                     index = index,
                     onListClick = {
                         navController.navigate(ListScreenRoute(list.id))
+                    },
+                    onDeleteListClick = {
+                        scope.launch {
+                            viewModel.deleteList(list.id)
+                            delay(1000)
+                            userLists.refresh()
+                        }
                     }
                 )
             }

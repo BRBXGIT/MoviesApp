@@ -1,4 +1,4 @@
-package com.example.core.data.models.create_list_models.create_list_response
+package com.example.core.data.models.list_models.create_list_models.create_list_response
 
 import com.google.gson.annotations.SerializedName
 

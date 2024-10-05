@@ -7,7 +7,7 @@ import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
 import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListRequest
 import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListResponse
-import com.example.core.data.models.list_details_models.Item
+import com.example.core.data.models.list_models.list_details_models.Item
 import com.example.core.data.models.movie_models.movies_genres_response.MoviesGenresResponse
 import com.example.core.data.remote.ListDetailsPagingSource
 import com.example.core.data.remote.TMDBApiInstance

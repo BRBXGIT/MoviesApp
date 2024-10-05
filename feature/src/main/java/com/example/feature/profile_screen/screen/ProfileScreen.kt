@@ -93,7 +93,8 @@ fun ProfileScreen(
                     userLists = userLists,
                     avatarPath = "https://image.tmdb.org/t/p/w500/${user.avatar.tmdb.avatarPath}",
                     gravatarPath = "https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}?s=500&d=identicon",
-                    navController = navController
+                    navController = navController,
+                    viewModel = viewModel
                 )
             }
         }
