@@ -129,6 +129,7 @@ interface TMDBApiInstance {
 
     @DELETE("list/{listId}")
     suspend fun deleteList(
+        @Header("Authorization") accessToken: String,
         @Path("listId") listId: Int,
         @Query("session_id") sessionId: String
     ): DeleteListResponse

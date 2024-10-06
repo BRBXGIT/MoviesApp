@@ -47,6 +47,6 @@ class ProfileScreenRepoImpl @Inject constructor(
     }
 
     override suspend fun deleteList(listId: Int, sessionId: String): DeleteListResponse {
-        return apiInstance.deleteList(listId, sessionId)
+        return apiInstance.deleteList(accessToken, listId, sessionId)
     }
 }

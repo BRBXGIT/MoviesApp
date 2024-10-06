@@ -28,7 +28,6 @@ import com.example.core.ui.theme.mColors
 import com.example.feature.R
 import com.example.feature.favorites_screen.sections.FavoriteMoviesLCSection
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -70,9 +69,7 @@ fun FavoritesScreen(
                 navController = navController,
                 onMovieDelete = {
                     scope.launch {
-                        viewModel.removeMovieFromFavorite(it)
-                        delay(1000)
-                        userFavorites.refresh()
+                        viewModel.removeMovieFromFavorite(it, userFavorites)
                     }
                 }
             )

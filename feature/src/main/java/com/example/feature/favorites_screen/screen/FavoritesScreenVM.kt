@@ -3,9 +3,11 @@ package com.example.feature.favorites_screen.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.compose.LazyPagingItems
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
 import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
+import com.example.core.data.models.movie_models.movies_previews_response.Result
 import com.example.core.data.repos.UserFavoritesRepoImpl
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent
@@ -57,7 +59,7 @@ class FavoritesScreenVM @Inject constructor(
         _reloadTrigger.value++
     }
 
-    fun removeMovieFromFavorite(movieId: Int) {
+    fun removeMovieFromFavorite(movieId: Int, userFavorites: LazyPagingItems<Result>) {
         viewModelScope.launch(dispatcherIo) {
             try {
                 repository.getUserData().collect { userData ->
@@ -75,6 +77,7 @@ class FavoritesScreenVM @Inject constructor(
                                 message = "Success"
                             )
                         )
+                        userFavorites.refresh()
                     } else {
                         SnackbarController.sendEvent(
                             SnackbarEvent(

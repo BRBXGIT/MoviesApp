@@ -3,10 +3,12 @@ package com.example.feature.profile_screen.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.compose.LazyPagingItems
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
 import com.example.core.data.models.list_models.create_list_models.create_list_request.CreateListRequest
 import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
+import com.example.core.data.models.user_models.user_lists_response.Result
 import com.example.core.data.repos.ProfileScreenRepoImpl
 import com.example.core.design_system.snackbars.SnackbarAction
 import com.example.core.design_system.snackbars.SnackbarController
@@ -110,7 +112,7 @@ class ProfileScreenVM @Inject constructor(
         }
     }
 
-    fun deleteList(listId: Int) {
+    fun deleteList(listId: Int, userLists: LazyPagingItems<Result>) {
         viewModelScope.launch(dispatcherIo) {
             try {
                 repository.getUser().collect { userData ->
@@ -122,6 +124,7 @@ class ProfileScreenVM @Inject constructor(
                                 message = "Success"
                             )
                         )
+                        userLists.refresh()
                     } else {
                         SnackbarController.sendEvent(
                             SnackbarEvent(

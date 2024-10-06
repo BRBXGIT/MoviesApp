@@ -65,11 +65,6 @@ fun ProfileScreen(
             ) {
                 CircularProgressIndicator()
             }
-        } else if(listsError) {
-            ErrorSection(
-                animation = R.raw.profile_error_animation,
-                errorMessage = listsErrorMessage
-            )
         } else {
             var isRefreshing by rememberSaveable { mutableStateOf(false) }
 
@@ -94,7 +89,13 @@ fun ProfileScreen(
                     avatarPath = "https://image.tmdb.org/t/p/w500/${user.avatar.tmdb.avatarPath}",
                     gravatarPath = "https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}?s=500&d=identicon",
                     navController = navController,
-                    viewModel = viewModel
+                    onDeleteListClick = {
+                        scope.launch {
+                            viewModel.deleteList(it, userLists)
+                        }
+                    },
+                    listsError = listsError,
+                    listsErrorMessage = listsErrorMessage
                 )
             }
         }
