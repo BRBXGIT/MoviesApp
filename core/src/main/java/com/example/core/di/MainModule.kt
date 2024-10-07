@@ -9,11 +9,13 @@ import com.example.core.data.repos.AuthRepoImpl
 import com.example.core.data.repos.LatestMoviesScreenRepoImpl
 import com.example.core.data.repos.MovieScreenRepoImpl
 import com.example.core.data.repos.ProfileScreenRepoImpl
+import com.example.core.data.repos.SearchScreenRepoImpl
 import com.example.core.data.repos.UserFavoritesRepoImpl
 import com.example.core.domain.AuthRepo
 import com.example.core.domain.LatestMoviesScreenRepo
 import com.example.core.domain.MovieScreenRepo
 import com.example.core.domain.ProfileScreenRepo
+import com.example.core.domain.SearchScreenRepo
 import com.example.core.domain.UserFavoritesScreenRepo
 import dagger.Module
 import dagger.Provides
@@ -77,5 +79,11 @@ object MainModule {
     @Singleton
     fun provideProfileScreenRepo(apiInstance: TMDBApiInstance, tmdbUserDao: TMDBUserDao): ProfileScreenRepo {
         return ProfileScreenRepoImpl(apiInstance, tmdbUserDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchScreenRepo(apiInstance: TMDBApiInstance): SearchScreenRepo  {
+        return SearchScreenRepoImpl(apiInstance)
     }
 }

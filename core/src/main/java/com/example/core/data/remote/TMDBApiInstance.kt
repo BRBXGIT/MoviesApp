@@ -133,4 +133,11 @@ interface TMDBApiInstance {
         @Path("listId") listId: Int,
         @Query("session_id") sessionId: String
     ): DeleteListResponse
+
+    @GET("search/movie")
+    suspend fun getMoviesByQuery(
+        @Header("Authorization") accessToken: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): MoviesPreviewsResponse
 }
