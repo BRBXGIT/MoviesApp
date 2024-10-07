@@ -16,4 +16,5 @@ object MoviesAppIcons {
     val DotsFilled = R.drawable.ic_dots_filled
     val ArrowRightRoundFilled = R.drawable.ic_arrow_right_round_filled
     val TrashBin = R.drawable.ic_trash_bin_outlined
+    val BackspaceFilled = R.drawable.ic_backspace_filled
 }

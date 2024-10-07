@@ -1,10 +1,10 @@
 package com.example.feature.common.top_bar
 
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -13,7 +13,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
@@ -24,7 +26,8 @@ fun CommonTopAppBar(
     title: String,
     scrollBehavior: TopAppBarScrollBehavior,
     navController: NavHostController,
-    sharedViewModel: TopBarMovieScreenSharedVM
+    sharedViewModel: TopBarMovieScreenSharedVM,
+    topBarVM: TopBarVM
 ) {
     var addMovieToListBSOpened by rememberSaveable { mutableStateOf(false) }
     if(addMovieToListBSOpened) {
@@ -34,7 +37,23 @@ fun CommonTopAppBar(
         )
     }
 
-    CenterAlignedTopAppBar(
+    var isSearching by rememberSaveable { mutableStateOf(false) }
+    val moviesByQuery = topBarVM.moviesByQuery.collectAsLazyPagingItems()
+    val moviesGenres = topBarVM.allMoviesGenres.collectAsStateWithLifecycle().value
+    if(isSearching) {
+        MoviesAppSearchBar(
+            isSearching = true,
+            onExpandChange = { isSearching = false },
+            onSearch = {
+                topBarVM.setQuery(it)
+                moviesByQuery.refresh()
+            },
+            movies = moviesByQuery,
+            genres = moviesGenres
+        )
+    }
+
+    TopAppBar(
         title = {
             Text(
                 text = title,
@@ -76,6 +95,8 @@ fun CommonTopAppBar(
                 onClick = {
                     if(title == "") {
                         navController.navigateUp()
+                    } else {
+                        isSearching = true
                     }
                 }
             ) {

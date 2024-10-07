@@ -29,6 +29,7 @@ import com.example.feature.auth_screen.navigation.authScreen
 import com.example.feature.common.bottom_bar.CommonBottomBar
 import com.example.feature.common.top_bar.CommonTopAppBar
 import com.example.feature.common.top_bar.TopBarMovieScreenSharedVM
+import com.example.feature.common.top_bar.TopBarVM
 import com.example.feature.favorites_screen.navigation.favoritesScreen
 import com.example.feature.latest_movies_screen.navigation.LatestMoviesScreenRoute
 import com.example.feature.latest_movies_screen.navigation.latestMoviesScreen
@@ -78,6 +79,7 @@ fun NavGraph(
     val currentDestination = if(currentRoute != null) currentRoute.toString().split(".")[5] else "MainScreenRoute"
 
     val topBarMovieScreenSharedVM = hiltViewModel<TopBarMovieScreenSharedVM>()
+    val topBarVM = hiltViewModel<TopBarVM>()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -95,7 +97,8 @@ fun NavGraph(
                     },
                     scrollBehavior = mainTopAppBarScrollBehavior,
                     navController = navController,
-                    sharedViewModel = topBarMovieScreenSharedVM
+                    sharedViewModel = topBarMovieScreenSharedVM,
+                    topBarVM = topBarVM
                 )
             }
         },
