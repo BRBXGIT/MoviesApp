@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -35,8 +34,6 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.core.data.models.movie_models.movies_genres_response.Genre
 import com.example.core.data.models.movie_models.movies_previews_response.Result
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
-import com.example.core.design_system.snackbars.SnackbarController
-import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
 
@@ -98,7 +95,6 @@ fun MoviesAppSearchBar(
         },
         expanded = isSearching,
         onExpandedChange = { onExpandChange() },
-
     ) {
         if(movies.loadState.refresh is LoadState.Loading) {
             Box(
@@ -142,7 +138,7 @@ fun MoviesAppSearchBar(
                                 )
 
                                 Text(
-                                    text = "${movie.voteAverage} • $genresString",
+                                    text = "${movie.voteAverage.toString().take(3)} • $genresString",
                                     style = mTypography.labelMedium.copy(
                                         color = mColors.secondary
                                     )
@@ -152,16 +148,6 @@ fun MoviesAppSearchBar(
                     }
                 }
             }
-        }
-    }
-
-    LaunchedEffect(movies.loadState) {
-        if(movies.loadState.refresh is LoadState.Error) {
-            SnackbarController.sendEvent(
-                SnackbarEvent(
-                    message = (movies.loadState.refresh as LoadState.Error).error.message.toString()
-                )
-            )
         }
     }
 }
