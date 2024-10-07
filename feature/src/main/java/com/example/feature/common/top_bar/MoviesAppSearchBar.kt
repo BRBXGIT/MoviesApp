@@ -1,11 +1,13 @@
 package com.example.feature.common.top_bar
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
@@ -29,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.core.data.models.movie_models.movies_genres_response.Genre
@@ -36,6 +39,7 @@ import com.example.core.data.models.movie_models.movies_previews_response.Result
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
+import com.example.feature.movie_screen.navigation.MovieScreenRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +48,8 @@ fun MoviesAppSearchBar(
     isSearching: Boolean,
     onSearch: (query: String) -> Unit,
     movies: LazyPagingItems<Result>,
-    genres: List<Genre>
+    genres: List<Genre>,
+    navController: NavHostController
 ) {
     var query by rememberSaveable { mutableStateOf("") }
 
@@ -107,7 +112,6 @@ fun MoviesAppSearchBar(
             LazyColumn(
                 contentPadding = PaddingValues(
                     vertical = 16.dp,
-                    horizontal = 16.dp
                 )
             ) {
                 items(movies.itemCount) { index ->
@@ -122,7 +126,17 @@ fun MoviesAppSearchBar(
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            modifier = Modifier.padding(16.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    onExpandChange()
+                                    navController.navigate(
+                                        MovieScreenRoute(
+                                            movieId = movie.id
+                                        )
+                                    )
+                                }
+                                .padding(16.dp)
                         ) {
                             Icon(
                                 painter = painterResource(id = MoviesAppIcons.Magnifier),

@@ -46,10 +46,10 @@ fun CommonTopAppBar(
             onExpandChange = { isSearching = false },
             onSearch = {
                 topBarVM.setQuery(it)
-                moviesByQuery.refresh()
             },
             movies = moviesByQuery,
-            genres = moviesGenres
+            genres = moviesGenres,
+            navController = navController
         )
     }
 
