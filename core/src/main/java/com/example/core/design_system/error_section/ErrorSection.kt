@@ -1,6 +1,5 @@
 package com.example.core.design_system.error_section
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +18,6 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
 
 @Composable
@@ -31,7 +29,6 @@ fun ErrorSection(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(mColors.background)
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {

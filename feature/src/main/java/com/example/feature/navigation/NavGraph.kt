@@ -38,6 +38,7 @@ import com.example.feature.movie_screen.navigation.movieScreen
 import com.example.feature.profile_screen.create_list_bottom_sheet.CreateListBottomSheet
 import com.example.feature.profile_screen.navigation.profileScreen
 import com.example.feature.profile_screen.profile_screen_action_btn.ProfileScreenActionBtn
+import com.example.feature.settings_screen.navigation.settingsScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -93,6 +94,7 @@ fun NavGraph(
                         "FavoritesScreenRoute" -> "Favorites"
                         "ProfileScreenRoute" -> "Profile"
                         "ListScreenRoute/{listId}" -> "List"
+                        "SettingsScreenRoute" -> "Settings"
                         else -> ""
                     },
                     scrollBehavior = mainTopAppBarScrollBehavior,
@@ -150,6 +152,8 @@ fun NavGraph(
                 mainScaffoldPadding = mainScaffoldPadding,
                 navController = navController
             )
+
+            settingsScreen(mainScaffoldPadding)
         }
     }
 }

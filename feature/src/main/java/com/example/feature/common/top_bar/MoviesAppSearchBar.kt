@@ -161,6 +161,17 @@ fun MoviesAppSearchBar(
                         }
                     }
                 }
+
+                item {
+                    if(movies.loadState.refresh is LoadState.Loading) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }
+                }
             }
         }
     }

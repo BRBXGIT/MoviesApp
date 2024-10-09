@@ -19,6 +19,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.design_system.movies_app_icons.MoviesAppIcons
 import com.example.core.ui.theme.mColors
 import com.example.core.ui.theme.mTypography
+import com.example.feature.settings_screen.navigation.SettingsScreenRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,19 +63,23 @@ fun CommonTopAppBar(
         },
         actions = {
             var dropDownMenuOpen by rememberSaveable { mutableStateOf(false) }
-            IconButton(
-                onClick = {
-                    if(title == "") {
-                        dropDownMenuOpen = true
+            if(title != "Settings") {
+                IconButton(
+                    onClick = {
+                        if(title == "") {
+                            dropDownMenuOpen = true
+                        } else {
+                            navController.navigate(SettingsScreenRoute)
+                        }
                     }
+                ) {
+                    Icon(
+                        painter = painterResource(
+                            id = if(title == "") MoviesAppIcons.DotsFilled else MoviesAppIcons.Settings
+                        ),
+                        contentDescription = null
+                    )
                 }
-            ) {
-                Icon(
-                    painter = painterResource(
-                        id = if(title == "") MoviesAppIcons.DotsFilled else MoviesAppIcons.Settings
-                    ),
-                    contentDescription = null
-                )
             }
 
             TopBarDropDownMenu(
@@ -93,7 +98,7 @@ fun CommonTopAppBar(
         navigationIcon = {
             IconButton(
                 onClick = {
-                    if(title == "") {
+                    if((title == "") || (title == "List") || (title == "Settings")) {
                         navController.navigateUp()
                     } else {
                         isSearching = true
@@ -102,7 +107,7 @@ fun CommonTopAppBar(
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if(title == "") MoviesAppIcons.ArrowLeft else MoviesAppIcons.Magnifier
+                        id = if((title == "") || (title == "List") || (title == "Settings")) MoviesAppIcons.ArrowLeft else MoviesAppIcons.Magnifier
                     ),
                     contentDescription = null
                 )
