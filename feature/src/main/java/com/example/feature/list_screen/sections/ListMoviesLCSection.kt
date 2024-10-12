@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
-import com.example.core.data.models.list_models.list_details_models.Item
+import com.example.core.data.models.list_models.Item
 import com.example.core.data.models.movie_models.movies_genres_response.Genre
 import com.example.core.design_system.error_section.ErrorSection
 import com.example.core.design_system.movie_card.MovieCard

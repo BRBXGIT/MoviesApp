@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import androidx.paging.compose.LazyPagingItems
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
-import com.example.core.data.models.list_models.create_list_models.create_list_request.CreateListRequest
+import com.example.core.data.models.list_models.CreateListRequest
 import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
 import com.example.core.data.models.user_models.user_lists_response.Result
 import com.example.core.data.repos.ProfileScreenRepoImpl

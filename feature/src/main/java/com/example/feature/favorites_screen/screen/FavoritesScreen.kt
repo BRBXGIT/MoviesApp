@@ -21,7 +21,6 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.core.design_system.error_section.ErrorSection
-import com.example.core.design_system.snackbars.SnackbarAction
 import com.example.core.design_system.snackbars.SnackbarController
 import com.example.core.design_system.snackbars.SnackbarEvent
 import com.example.core.ui.theme.mColors
@@ -77,19 +76,10 @@ fun FavoritesScreen(
 
         LaunchedEffect(userFavorites.loadState) {
             if(userFavorites.loadState.refresh is LoadState.Error) {
-                error = true
                 errorMessage = (userFavorites.loadState.refresh as LoadState.Error).error.message.toString()
+                error = true
                 SnackbarController.sendEvent(SnackbarEvent(
                     message = "Internet exception, try with vpn :)",
-                    action = SnackbarAction(
-                        name = "Refresh",
-                        action = {
-                            error = false
-                            errorMessage = ""
-                            userFavorites.refresh()
-                            viewModel.reloadGenres()
-                        }
-                    )
                 ))
             }
         }

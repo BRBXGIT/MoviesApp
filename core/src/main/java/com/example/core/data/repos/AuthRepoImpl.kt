@@ -3,9 +3,9 @@ package com.example.core.data.repos
 import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
 import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
-import com.example.core.data.models.session_models.request_token_response.RequestTokenResponse
-import com.example.core.data.models.session_models.session_request.SessionRequest
-import com.example.core.data.models.session_models.session_response.SessionResponse
+import com.example.core.data.models.session_models.RequestTokenResponse
+import com.example.core.data.models.session_models.SessionRequest
+import com.example.core.data.models.session_models.SessionResponse
 import com.example.core.data.remote.TMDBApiInstance
 import com.example.core.domain.AuthRepo
 import com.example.core.utils.Utils

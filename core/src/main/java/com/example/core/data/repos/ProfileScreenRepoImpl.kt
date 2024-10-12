@@ -5,9 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.core.data.local.TMDBUser
 import com.example.core.data.local.TMDBUserDao
-import com.example.core.data.models.list_models.create_list_models.create_list_request.CreateListRequest
-import com.example.core.data.models.list_models.create_list_models.create_list_response.CreateListResponse
-import com.example.core.data.models.list_models.delete_list_models.DeleteListResponse
+import com.example.core.data.models.list_models.CreateListRequest
+import com.example.core.data.models.list_models.CreateListResponse
+import com.example.core.data.models.list_models.DeleteListResponse
 import com.example.core.data.models.user_models.account_details_response.AccountDetailsResponse
 import com.example.core.data.models.user_models.user_lists_response.Result
 import com.example.core.data.remote.TMDBApiInstance

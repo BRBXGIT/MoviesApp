@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.core.common.Dispatcher
 import com.example.core.common.MoviesAppDispatchers
-import com.example.core.data.models.add_favorite_models.add_favorite_request.AddRemoveFavoriteRequest
+import com.example.core.data.models.add_favorite_models.AddRemoveFavoriteRequest
 import com.example.core.data.models.add_movie_to_list_models.AddRemoveMovieToListRequest
 import com.example.core.data.repos.MovieScreenRepoImpl
 import com.example.core.design_system.snackbars.SnackbarController
