@@ -50,8 +50,9 @@ dependencies {
     implementation(libs.converter.gson)
     //Room
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.ui.text.google.fonts)
     ksp(libs.androidx.room.compiler)
+    //Google fonts
+    implementation(libs.androidx.ui.text.google.fonts)
     //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)

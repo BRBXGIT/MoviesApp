@@ -86,4 +86,3 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspPlugin" }
-
