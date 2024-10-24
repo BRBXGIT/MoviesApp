@@ -2,9 +2,9 @@
 
 <img src="docs/app_icon.svg" width="128" height="128"/>
 
-# CalorieCounter
+# MoviesApp
 
-### App with films information for Android!
+### App with movies information for Android!
 
 </div>
 
@@ -28,7 +28,7 @@
 ### Search
 - Search any movie by name
 ### Appearance
-- Material 3 theme
+- Material 3
 ### Design
 - Inspired by this [design](https://github.com/f33lnothin9/flick)
 ### Problems
