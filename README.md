@@ -29,9 +29,9 @@
 - Search any movie by name
 ### Appearance
 - Material 3
-### Design
-- Inspired by this [design](https://github.com/f33lnothin9/flick)
 ### Problems
 - Some countries need to use vpn due to api :(
+### Inspired
+- Many features inspired by this [app](https://github.com/f33lnothin9/flick)
 ### App preview
 https://github.com/user-attachments/assets/57d752a4-2bd3-473e-904f-8a62eef3ac58
